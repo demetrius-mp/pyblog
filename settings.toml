@@ -1,0 +1,6 @@
+[default]
+DEBUG = true
+SQLALCHEMY_DATABASE_URI = 'sqlite:///storage.db'
+TITLE = "PyBlog"
+SECRET_KEY = "jadkfbsdkjbfbh"
+EXTENSIONS = []
