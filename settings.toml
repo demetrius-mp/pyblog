@@ -1,6 +1,10 @@
 [default]
-DEBUG = true
+DEBUG = "True"
 SQLALCHEMY_DATABASE_URI = 'sqlite:///storage.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = "False"
 TITLE = "PyBlog"
-SECRET_KEY = "jadkfbsdkjbfbh"
-EXTENSIONS = []
+SECRET_KEY = "VpoOsy27e81PE6YCAOKs/7gNs3Bx+oCdRPMl1M1K+5I="
+EXTENSIONS = [
+    "pyblog.ext.database:init_app",
+    "pyblog.ext.migration:init_app",
+]
