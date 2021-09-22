@@ -44,8 +44,10 @@ def login():
             flash('Login successful.', 'success')
 
             next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
 
-            return redirect(next_page) if next_page else redirect(url_for('main.index'))
+            return redirect(url_for('main.index'))
 
         else:
             flash('Login unsuccessful. Please check email and password', 'error')

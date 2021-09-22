@@ -5,6 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from pyblog.models import User
 
 login_manager = LoginManager()
+login_manager.login_view = 'main.index'
+login_manager.login_message = "You must log in to access this page."
+login_manager.login_message_category = "info"
 
 login_user = login_user
 logout_user = logout_user
