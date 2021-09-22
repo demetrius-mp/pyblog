@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/me.css') }}">
 {% endblock head %}
 {% block content %}
   <main class="container mt-4">
@@ -106,6 +106,9 @@
           </div>
         </div>
       </div>
+    <div class="col-lg-4 order-0 order-lg-1">
+      {% include 'components/profile_cards/editable.html' %}
+    </div>
     </div>
   </main>
 {% endblock content %}

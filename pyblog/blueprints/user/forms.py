@@ -7,16 +7,16 @@ from pyblog.ext import auth
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username',
+    username = StringField('Username', id='r_username',
                            validators=[DataRequired(),
                                        Length(min=2, max=30,
                                               message='Username must be between 2 and 20 characters long.')])
-    email = StringField('Email',
+    email = StringField('Email', id='r_email',
                         validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', id='r_password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Sign Up', id='r_submit')
 
     # noinspection PyMethodMayBeStatic
     def validate_username(self, username):

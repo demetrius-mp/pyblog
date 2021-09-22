@@ -1,0 +1,79 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex flex-column align-items-center text-center">
+      <img
+        src="{{ url_for('static', filename='img/default-profile-pic.jpg') }}"
+        alt="Profile picture"
+        class="rounded-circle"
+        width="110"
+      />
+      <div class="mt-3">
+        <div class="row justify-content-center">
+          <h4>demetrius-mp</h4>
+          <p id="cardBio" class="text-secondary mb-2 col-10">
+            Studying software engineering since 2019. Back-end dev
+            with Flask.
+          </p>
+        </div>
+        <button disabled class="btn btn-primary">Follow</button>
+      </div>
+    </div>
+    <hr class="my-4"/>
+    <ul class="list-group list-group-flush">
+      <li
+        class="list-group-item
+        d-flex justify-content-between
+        align-items-centerflex-wrap">
+        <h6>
+          <i class="bi bi-play-fill"></i>
+          Currently learning
+        </h6>
+        <div class="mt-2 mt-lg-0">
+          <span
+            spellcheck="false"
+            contenteditable="true"
+            class="editable text-secondary"
+          >
+            Flask
+          </span>
+        </div>
+      </li>
+      <li
+        class="list-group-item
+        d-flex justify-content-between
+        align-items-centerflex-wrap">
+        <h6>
+          <i class="bi bi-lightning-fill"></i>
+          Experience in
+        </h6>
+        <div class="mt-2 mt-lg-0">
+          <span
+            spellcheck="false"
+            contenteditable="true"
+            class="editable text-secondary"
+          >
+            Python
+          </span>
+        </div>
+      </li>
+      <li
+        class="list-group-item
+        d-flex justify-content-between
+        align-items-centerflex-wrap">
+        <h6>
+          <i class="bi bi-skip-forward-fill"></i>
+          Looking to
+        </h6>
+        <div class="mt-2 mt-lg-0">
+          <span
+            spellcheck="false"
+            contenteditable="true"
+            class="editable text-secondary"
+          >
+            ReactJS
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
