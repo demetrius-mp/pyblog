@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      PyBlog
+    </a>
+    <div class="navbar-nav">
+      <div class="dropdown dropleft me-1 pe-2">
+        <i style="font-size: 1.7rem; cursor: pointer; color: gray;" class="bi bi-person-circle"
+           data-bs-toggle="dropdown">
+        </i>
+        <div class="dropdown-menu dropdown-menu-end" style="position: absolute;">
+          <a class="dropdown-item" href="#">
+            My profile
+          </a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item text-danger" href="{{ url_for('users.logout') }}">
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

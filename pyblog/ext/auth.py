@@ -17,7 +17,7 @@ check_password_hash = check_password_hash
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(int(user_id))
+    return User.query.get(int(user_id))
 
 
 def init_app(app: Flask):

@@ -18,13 +18,13 @@
 }
 
 #toast-container > .toast-error:before {
-  content: "\f001";
+  content: "\f623";
 }
 
 #toast-container > .toast-info:before {
-  content: "\f005";
+  content: "\f431";
 }
 
 #toast-container > .toast-success:before {
-  content: "\f002";
+  content: "\f270";
 }

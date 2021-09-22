@@ -7,48 +7,27 @@
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <form action="" method="POST">
+      <form action="{{ url_for('users.login') }}" method="POST">
+        {{ login_form.hidden_tag() }}
         <div class="modal-body">
           <div class="mb-3">
-            <label for="email" class="col-form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="email@email.com"
-              class="form-control"
-              id="email"
-            >
+            {{ login_form.email.label(class='col-form-label') }}
+            {{ login_form.email(class="form-control", placeholder="email@email.com") }}
           </div>
           <div class="mb-3">
-            <label for="password" class="col-form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="********"
-              class="form-control"
-              id="password"
-            >
+            {{ login_form.password.label(class='col-form-label') }}
+            {{ login_form.password(class="form-control", placeholder="********") }}
           </div>
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="remember"
-              name="remember">
-            <label class="form-check-label" for="remember">
-              Remember me
-            </label>
+            {{ login_form.remember(class="form-check-input") }}
+            {{ login_form.remember.label(class="form-check-label") }}
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <a class="text-muted" href="">
             Forgot your password?
           </a>
-          <button type="submit" class="btn btn-primary">
-            Login
-          </button>
+          {{ login_form.submit(class="btn btn-primary") }}
         </div>
       </form>
     </div>
