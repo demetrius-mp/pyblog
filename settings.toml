@@ -10,4 +10,5 @@ EXTENSIONS = [
     "pyblog.ext.auth:init_app",
     "pyblog.blueprints.user:init_app",
     "pyblog.blueprints.main:init_app",
+    "pyblog.blueprints.posts:init_app",
 ]

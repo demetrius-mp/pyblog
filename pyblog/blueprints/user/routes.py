@@ -20,9 +20,12 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to login', 'success')
+        db.session.refresh(user)
 
-        return redirect(url_for('main.index'))
+        auth.login_user(user)
+        flash('Your account has been created!', 'success')
+
+        return redirect(url_for('users.me'))
 
     for k, v in form.errors.items():
         for error in v:
@@ -77,9 +80,6 @@ def me():
         if not auth.check_password_hash(current_user.password, form.password.data):
             flash('Incorrect password.', 'error')
             return redirect(url_for('users.me'))
-
-        print(form.picture.data)
-        print(request.files)
 
         if form.picture.data:
             picture_file = utils.save_picture(form.picture.data)
