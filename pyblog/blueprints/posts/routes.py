@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask import Blueprint, render_template, flash, redirect, url_for
 # noinspection PyPackageRequirements
 from slugify import slugify
@@ -18,6 +16,7 @@ def new():
     form = CreatePostForm()
     if form.validate_on_submit():
         post = Post()
+        post.user_id = auth.current_user.id
         post.title = form.title.data
         post.description = form.description.data
         post.content = form.content.data
@@ -36,6 +35,8 @@ def new():
 
         return redirect(url_for('main.index'))
 
-    now = datetime.utcnow().strftime('%d/%m/%Y at %H:%M:%S')
-    return render_template('new_post.html', title='Create Post',
-                           now=now, form=form)
+    for k, v in form.errors.items():
+        for error in v:
+            flash(error, category='warning')
+
+    return render_template('new_post.html', title='Create Post', form=form)

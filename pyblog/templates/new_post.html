@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% from 'components/post_card.html' import post_card %}
+{% from 'components/post/post_card.html' import post_card %}
+{% from 'components/post/post_form.html' import post_form %}
 
 {% block head %}
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/easymde/github.min.css') }}">
@@ -11,79 +12,37 @@
     <div class="row justify-content-center">
       <div class="col-lg-8 order-lg-0 order-1">
         <h1>Create post</h1>
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="My first post on PyBlog!">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="tags">Tags</label>
-          <input class="form-control" type="text" name="tags" id="tags" placeholder="#html #frontend">
-          <p class="float-end text-muted"><span id="tagsCounter">0</span> / 5 tags</p>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="description">Description</label>
-          <textarea placeholder="Maximum 300 characters description" class="form-control" name="description" rows="4"
-                    id="description" maxlength="300"></textarea>
-          <p class="float-end text-muted"><span id="descriptionCharCounter">0</span> / 300 characters</p>
-        </div>
-
-        <div class="mb-3">
-          <label for="content" class="form-label">Content</label>
-          <textarea name="content" id="content"></textarea>
-        </div>
-
-        <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
-          <button id="saveDraft" class="btn btn-secondary me-md-2" type="button">Save draft</button>
-          <button id="publish" class="btn btn-primary" type="button">Publish</button>
-        </div>
+        {{ post_form(form=form) }}
+{#        <div class="mb-3">#}
+{#          <label for="title" class="form-label">Title</label>#}
+{#          <input type="text" class="form-control" id="title" name="title" placeholder="My first post on PyBlog!">#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label class="form-label" for="tags">Tags</label>#}
+{#          <input class="form-control" type="text" name="tags" id="tags" placeholder="#html #frontend">#}
+{#          <p class="float-end text-muted"><span id="tagsCounter">0</span> / 5 tags</p>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label class="form-label" for="description">Description</label>#}
+{#          <textarea placeholder="Maximum 300 characters description" class="form-control" name="description" rows="4"#}
+{#                    id="description" maxlength="300"></textarea>#}
+{#          <p class="float-end text-muted"><span id="descriptionCharCounter">0</span> / 300 characters</p>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3">#}
+{#          <label for="content" class="form-label">Content</label>#}
+{#          <textarea name="content" id="content"></textarea>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-end">#}
+{#          <button id="saveDraft" class="btn btn-secondary me-md-2" type="button">Save draft</button>#}
+{#          <button id="publish" class="btn btn-primary" type="button">Publish</button>#}
+{#        </div>#}
       </div>
       <div class="col-lg-4 order-0 order-lg-1">
         {{ post_card(user=current_user) }}
-{#        <div class="row">#}
-{#          <div class="col-sm-12">#}
-{#            <div class="card mb-3">#}
-{#              <div class="card-header">#}
-{#                <div class="row row-cols-lg-auto row-cols-auto justify-content-between">#}
-{#                  <div class="col-sm">#}
-{#                    <h5 class="mb-0">#}
-{#                      <a class="text-decoration-none" href="">#}
-{#                        Title of the post#}
-{#                      </a>#}
-{#                    </h5>#}
-{#                  </div>#}
-{#                  <div class="col-sm-auto align-self-center">#}
-{#                    <span class="text-secondary">#}
-{#                      by <a class="text-muted" href="">#}
-{#                      {{ current_user.username }}#}
-{#                    </a>#}
-{#                    </span>#}
-{#                  </div>#}
-{#                </div>#}
-{#              </div>#}
-{#              <div class="card-body">#}
-{#                <h6 class="card-title">#}
-{#                  <a class="text-muted text-decoration-none" href="">#frontend</a>#}
-{#                  <a class="text-muted text-decoration-none" href="">#framework</a>#}
-{#                  <a class="text-muted text-decoration-none" href="">#seo</a>#}
-{#                </h6>#}
-{#                <p class="card-text">#}
-{#                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum#}
-{#                  voluptatem nisi repellat assumenda quibusdam quisquam ea modi accusantium hic quae numquam#}
-{#                  voluptas dolores nulla animi, neque corporis odio aliquid.#}
-{#                </p>#}
-{#              </div>#}
-{#              <div class="card-footer d-flex justify-content-between">#}
-{#                <small class="text-muted">Posted in {{ now }}</small>#}
-{#                <div>#}
-{#                  <i class="bi bi-hand-thumbs-up me-1">0</i>#}
-{#                  <i class="bi bi-hand-thumbs-down">0</i>#}
-{#                </div>#}
-{#              </div>#}
-{#            </div>#}
-{#          </div>#}
-{#        </div>#}
       <hr class="my-1">
       </div>
     </div>
