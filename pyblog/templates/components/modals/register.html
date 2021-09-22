@@ -1,0 +1,79 @@
+<div class="modal fade" id="registerModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Register
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="{{ url_for('users.register') }}" method="POST">
+        {{ registration_form.hidden_tag() }}
+        <div class="modal-body">
+          <div class="mb-3">
+            {{ registration_form.username.label(class='col-form-label') }}
+            {{ registration_form.username(class="form-control", placeholder="my-username") }}
+{#            <label for="username" class="col-form-label">#}
+{#              Username#}
+{#            </label>#}
+{#            <input#}
+{#              type="text"#}
+{#              placeholder="my-username"#}
+{#              class="form-control"#}
+{#              id="username"#}
+{#              name="username"#}
+{#            >#}
+          </div>
+          <div class="mb-3">
+            {{ registration_form.email.label(class='col-form-label') }}
+            {{ registration_form.email(class="form-control", placeholder="email@email.com") }}
+{#            <label for="email" class="col-form-label">#}
+{#              Email#}
+{#            </label>#}
+{#            <input#}
+{#              type="email"#}
+{#              placeholder="email@email.com"#}
+{#              class="form-control"#}
+{#              id="email"#}
+{#              name="email"#}
+{#            >#}
+          </div>
+          <div class="mb-3">
+            {{ registration_form.password.label(class='col-form-label') }}
+            {{ registration_form.password(class="form-control", placeholder="********") }}
+{#            <label for="password" class="col-form-label">#}
+{#              Password#}
+{#            </label>#}
+{#            <input#}
+{#              type="password"#}
+{#              placeholder="********"#}
+{#              class="form-control"#}
+{#              id="password"#}
+{#              name="password"#}
+{#            >#}
+          </div>
+          <div class="mb-3">
+            {{ registration_form.confirm_password.label(class='col-form-label') }}
+            {{ registration_form.confirm_password(class="form-control", placeholder="********") }}
+{#            <label for="confirmPassword" class="col-form-label">#}
+{#              Confirm password#}
+{#            </label>#}
+{#            <input#}
+{#              type="password"#}
+{#              placeholder="********"#}
+{#              class="form-control"#}
+{#              id="confirmPassword"#}
+{#              name="confirmPassword"#}
+{#            >#}
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          {{ registration_form.submit(class="btn btn-primary w-100") }}
+{#          <button type="submit" class="btn btn-primary w-100">#}
+{#            Register#}
+{#          </button>#}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

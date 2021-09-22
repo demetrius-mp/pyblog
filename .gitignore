@@ -139,3 +139,5 @@ cython_debug/
 
 # Custom
 .idea/
+migrations/
+storage.db
