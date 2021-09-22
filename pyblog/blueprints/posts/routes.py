@@ -1,9 +1,12 @@
 from datetime import datetime
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash, redirect, url_for
+# noinspection PyPackageRequirements
+from slugify import slugify
 
-from pyblog.ext import auth
 from pyblog.blueprints.posts.forms import CreatePostForm
+from pyblog.ext import auth
+from pyblog.ext.database import get_session
 from pyblog.models import Post
 
 posts = Blueprint('posts', __name__)
@@ -14,8 +17,25 @@ posts = Blueprint('posts', __name__)
 def new():
     form = CreatePostForm()
     if form.validate_on_submit():
-        title = form.title.data
-        description = form.description.data
+        post = Post()
+        post.title = form.title.data
+        post.description = form.description.data
+        post.content = form.content.data
+        post.is_published = form.publish.data
+        post.slug = slugify(post.title, max_length=256)
+        session = get_session()
+        session.add(post)
+        session.commit()
+
+        if form.publish.data:
+            flash('Post published succesfully!', 'success')
+            return redirect(url_for('users.user_page', username=auth.current_user.username))
+
+        elif form.save_draft.data:
+            flash('Saved post draft.', 'info')
+
+        return redirect(url_for('main.index'))
 
     now = datetime.utcnow().strftime('%d/%m/%Y at %H:%M:%S')
-    return render_template('new_post.html', title='Create Post', now=now)
+    return render_template('new_post.html', title='Create Post',
+                           now=now, form=form)

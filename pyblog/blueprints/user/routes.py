@@ -1,6 +1,8 @@
 from flask import url_for, flash, redirect, Blueprint, request, render_template
+from sqlalchemy.orm import Session
+
 from pyblog.ext import auth
-from pyblog.ext.database import db
+from pyblog.ext.database import get_session
 from pyblog.models import User
 from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from pyblog.blueprints.user import utils
@@ -18,9 +20,10 @@ def register():
         hashed_password = auth.generate_password_hash(form.password.data)
         # noinspection PyArgumentList
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        db.session.refresh(user)
+        session = get_session()
+        session.add(user)
+        session.commit()
+        session.refresh(user)
 
         auth.login_user(user)
         flash('Your account has been created!', 'success')
@@ -92,7 +95,9 @@ def me():
         current_user.currently_learning = form.currently_learning.data
         current_user.experience_in = form.experience_in.data
         current_user.looking_to = form.looking_to.data
-        db.session.commit()
+        session = get_session()
+        session.add(current_user)
+        session.commit()
 
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.me'))

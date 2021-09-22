@@ -1,8 +1,5 @@
 from datetime import datetime
 
-# noinspection PyPackageRequirements
-from slugify import slugify
-
 from pyblog.ext.database import db
 
 
@@ -15,12 +12,7 @@ class Post(db.Model):
     slug = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(300), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    is_draft = db.Column(db.Boolean, nullable=False, default=True)
+    is_published = db.Column(db.Boolean, nullable=False, default=False)
     posted_in = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     user = db.relationship('User', back_populates='posts')
-
-    def __init__(self, *args, **kwargs):
-        if 'slug' not in kwargs:
-            kwargs['slug'] = slugify(kwargs.get('title', ''))
-        super().__init__(*args, **kwargs)

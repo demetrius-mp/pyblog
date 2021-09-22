@@ -1,8 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import event
+from sqlalchemy.orm import Session
 
 db = SQLAlchemy()
+
+
+def get_session() -> Session:
+    return db.session
 
 
 def init_app(app: Flask):

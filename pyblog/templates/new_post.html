@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from 'components/post_card.html' import post_card %}
 
 {% block head %}
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/easymde/github.min.css') }}">
@@ -39,49 +40,50 @@
         </div>
       </div>
       <div class="col-lg-4 order-0 order-lg-1">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card mb-3">
-              <div class="card-header">
-                <div class="row row-cols-lg-auto row-cols-auto justify-content-between">
-                  <div class="col-sm">
-                    <h5 class="mb-0">
-                      <a class="text-decoration-none" href="">
-                        Title of the post
-                      </a>
-                    </h5>
-                  </div>
-                  <div class="col-sm-auto align-self-center">
-                    <span class="text-secondary">
-                      by <a class="text-muted" href="">
-                      {{ current_user.username }}
-                    </a>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">
-                  <a class="text-muted text-decoration-none" href="">#frontend</a>
-                  <a class="text-muted text-decoration-none" href="">#framework</a>
-                  <a class="text-muted text-decoration-none" href="">#seo</a>
-                </h6>
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum
-                  voluptatem nisi repellat assumenda quibusdam quisquam ea modi accusantium hic quae numquam
-                  voluptas dolores nulla animi, neque corporis odio aliquid.
-                </p>
-              </div>
-              <div class="card-footer d-flex justify-content-between">
-                <small class="text-muted">Posted in {{ now }}</small>
-                <div>
-                  <i class="bi bi-hand-thumbs-up me-1">0</i>
-                  <i class="bi bi-hand-thumbs-down">0</i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {{ post_card(user=current_user) }}
+{#        <div class="row">#}
+{#          <div class="col-sm-12">#}
+{#            <div class="card mb-3">#}
+{#              <div class="card-header">#}
+{#                <div class="row row-cols-lg-auto row-cols-auto justify-content-between">#}
+{#                  <div class="col-sm">#}
+{#                    <h5 class="mb-0">#}
+{#                      <a class="text-decoration-none" href="">#}
+{#                        Title of the post#}
+{#                      </a>#}
+{#                    </h5>#}
+{#                  </div>#}
+{#                  <div class="col-sm-auto align-self-center">#}
+{#                    <span class="text-secondary">#}
+{#                      by <a class="text-muted" href="">#}
+{#                      {{ current_user.username }}#}
+{#                    </a>#}
+{#                    </span>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </div>#}
+{#              <div class="card-body">#}
+{#                <h6 class="card-title">#}
+{#                  <a class="text-muted text-decoration-none" href="">#frontend</a>#}
+{#                  <a class="text-muted text-decoration-none" href="">#framework</a>#}
+{#                  <a class="text-muted text-decoration-none" href="">#seo</a>#}
+{#                </h6>#}
+{#                <p class="card-text">#}
+{#                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum#}
+{#                  voluptatem nisi repellat assumenda quibusdam quisquam ea modi accusantium hic quae numquam#}
+{#                  voluptas dolores nulla animi, neque corporis odio aliquid.#}
+{#                </p>#}
+{#              </div>#}
+{#              <div class="card-footer d-flex justify-content-between">#}
+{#                <small class="text-muted">Posted in {{ now }}</small>#}
+{#                <div>#}
+{#                  <i class="bi bi-hand-thumbs-up me-1">0</i>#}
+{#                  <i class="bi bi-hand-thumbs-down">0</i>#}
+{#                </div>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
       <hr class="my-1">
       </div>
     </div>

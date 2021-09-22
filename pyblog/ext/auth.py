@@ -12,7 +12,7 @@ login_manager.login_message_category = "info"
 login_user = login_user
 logout_user = logout_user
 login_required = login_required
-current_user = current_user
+current_user: User = current_user
 
 generate_password_hash = generate_password_hash
 check_password_hash = check_password_hash

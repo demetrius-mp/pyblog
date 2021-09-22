@@ -1,0 +1,62 @@
+{% macro post_card(user, post=None) %}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="row row-cols-lg-auto row-cols-auto justify-content-between">
+            <div class="col-sm">
+              <h5 class="mb-0">
+                {% if post %}
+                  <a class="text-decoration-none" href="">
+                    {{ post.title }}
+                  </a>
+                {% else %}
+                  <a class="text-decoration-none" style="cursor: pointer;">
+                    Title of your post in PyBlog!
+                  </a>
+                {% endif %}
+              </h5>
+            </div>
+            <div class="col-sm-auto align-self-center">
+              <span class="text-secondary">
+                by
+                <a class="text-muted" href="{{ url_for('users.user_page', username=user.username) }}">
+                  {{ user.username }}
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h6 class="card-title">
+            <a class="text-muted text-decoration-none" href="">#frontend</a>
+            <a class="text-muted text-decoration-none" href="">#framework</a>
+            <a class="text-muted text-decoration-none" href="">#seo</a>
+          </h6>
+          <p class="card-text">
+            {% if post %}
+              {{ post.description }}
+            {% else %}
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus voluptatum
+              voluptatem nisi repellat assumenda quibusdam quisquam ea modi accusantium
+              hic quae numquam voluptas dolores nulla animi, neque corporis odio aliquid.
+            {% endif %}
+          </p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <small class="text-muted">
+            {% if post %}
+              Posted in {{ post.posted_in }}
+            {% else %}
+              Posted in {{ utc_now() }}
+            {% endif %}
+          </small>
+          <div>
+            <i class="bi bi-hand-thumbs-up me-1">0</i>
+            <i class="bi bi-hand-thumbs-down">0</i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
