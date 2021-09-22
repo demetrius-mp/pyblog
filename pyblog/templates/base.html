@@ -19,11 +19,7 @@
 </head>
 <body>
 
-{% if current_user.is_authenticated %}
-  {% include 'components/navbars/authenticated.html' %}
-{% else %}
-  {% include 'components/navbars/anonymous.html' %}
-{% endif %}
+{% include 'components/navbar.html' %}
 
 {% block content %}{% endblock content %}
 

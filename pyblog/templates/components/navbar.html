@@ -1,0 +1,43 @@
+{% if not current_user.is_authenticated %}
+  {% include 'components/modals/login.html' %}
+  {% include 'components/modals/register.html' %}
+{% endif %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('main.index') }}">
+      PyBlog
+    </a>
+    {% if current_user.is_authenticated %}
+      <div class="navbar-nav">
+        <div class="dropdown dropleft me-1 pe-2">
+          <i style="font-size: 1.7rem; cursor: pointer; color: gray;" class="bi bi-person-circle"
+             data-bs-toggle="dropdown">
+          </i>
+          <div class="dropdown-menu dropdown-menu-end" style="position: absolute;">
+            <a class="dropdown-item" href="{{ url_for('users.me') }}">
+              My profile
+            </a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item text-danger" href="{{ url_for('users.logout') }}">
+              Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <ul class="nav">
+        <li class="nav-item">
+          <a data-bs-toggle="modal" data-bs-target="#registerModal" class="nav-link" style="color: gray;" href="">
+            Register
+          </a>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="modal" data-bs-target="#loginModal" class="nav-link" style="color: gray;" href="">
+            Login
+          </a>
+        </li>
+      </ul>
+    {% endif %}
+  </div>
+</nav>
