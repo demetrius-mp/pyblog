@@ -71,6 +71,10 @@ def me():
     current_user: User = auth.current_user
     form = UpdateProfileForm()
     if form.validate_on_submit():
+        if not auth.check_password_hash(current_user.password, form.password.data):
+            flash('Incorrect password.', 'error')
+            return redirect(url_for('users.me'))
+
         current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.bio = form.bio.data
@@ -82,6 +86,7 @@ def me():
 
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.me'))
+
     elif request.method == 'GET':
         form.email.data = current_user.email
         form.username.data = current_user.username
@@ -91,6 +96,14 @@ def me():
         form.experience_in.data = current_user.experience_in
         form.looking_to.data = current_user.looking_to
 
-    print(form.errors)
+    return render_template('profile.html', form=form)
 
-    return render_template('me.html', form=form)
+
+@users.route('/<string:username>', methods=['GET', 'POST'])
+def user_page(username: str):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        flash('User not found.', 'warning')
+        return redirect(url_for('main.index'))
+
+    return render_template('profile.html', user=user)

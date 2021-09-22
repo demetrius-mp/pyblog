@@ -1,6 +1,7 @@
 const $bio = $('#bio')
 const $biocharCounter = $('#bioCharCounter')
 const $cardBio = $('#cardBio')
+const $profileCard = $('#profileCard')
 
 const $editableLearning = $('#editableCurrentlyLearning')
 const $inputLearning = $('#currently_learning')
@@ -33,4 +34,26 @@ $editableExperience.on('input', () => {
 $editableLooking.on('input', () => {
   const looking = $editableLooking.text().trim()
   $inputLooking.val(looking)
+})
+
+// (function () {
+//   const inputs = document.querySelectorAll('.editable');
+//   for (let i = inputs.length; i--;) {
+//     inputs[i].addEventListener('click', function (e) {
+//       e.target.contentEditable = true;
+//       e.target.focus();
+//     });
+//     inputs[i].addEventListener('blur', function (e) {
+//       e.target.contentEditable = false;
+//     });
+//   }
+// })();
+
+$profileCard.on('click', '.editable', (e) => {
+  $(e.target).attr('contenteditable','true')
+  $(e.target).focus()
+})
+
+$profileCard.on('blur', '.editable', (e) => {
+  $(e.target).attr('contenteditable','false')
 })

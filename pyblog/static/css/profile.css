@@ -4,12 +4,12 @@
   border-radius: 5px;
 }
 
-.editable[contenteditable="true"]:hover:not(:focus) {
-  border: 1px solid rgba(175, 175, 175, 0.5);
+.editable:hover:not(:focus) {
+  border: 1px solid rgba(80, 80, 80, 0.5);
   border-radius: 5px;
 }
 
-.editable[contenteditable="true"]:focus {
+.editable:focus {
   border-color: #0d6efd;
   padding: 3px;
   border-radius: 5px;
