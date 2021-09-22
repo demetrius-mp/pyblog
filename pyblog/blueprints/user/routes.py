@@ -1,8 +1,8 @@
-from flask import url_for, flash, redirect, Blueprint, request
+from flask import url_for, flash, redirect, Blueprint, request, render_template
 from pyblog.ext import auth
 from pyblog.ext.database import db
 from pyblog.models import User
-from pyblog.blueprints.user.forms import RegistrationForm, LoginForm
+from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm
 
 users = Blueprint('users', __name__)
 
@@ -63,3 +63,25 @@ def logout():
     flash('Logout succesful', 'success')
 
     return redirect(url_for('main.index'))
+
+
+@users.route('/me', methods=['GET', 'POST'])
+@auth.login_required
+def me():
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        auth.current_user.username = form.username.data
+        auth.current_user.email = form.email.data
+        auth.current_user.bio = form.bio.data
+        auth.current_user.full_name = form.full_name.data
+
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('users.me'))
+    elif request.method == 'GET':
+        form.email.data = auth.current_user.email
+        form.username.data = auth.current_user.username
+        form.bio.data = auth.current_user.bio
+        form.full_name.data = auth.current_user.full_name
+
+    return render_template('me.html', form=form)
