@@ -1,14 +1,22 @@
 <div class="card">
   <div class="card-body">
     <h1>Profile information</h1>
-    <form action="{{ url_for('users.me') }}" method="POST">
+    <form action="{{ url_for('users.me') }}" method="POST" enctype="multipart/form-data">
       {{ form.csrf_token() }}
       <div class="row mb-3">
         <div class="col">
-          <label for="picture" class="form-label">
-            Profile Picture
-          </label>
-          <input name="picture" type="file" class="form-control"/>
+          {{ form.picture.label(class="form-label") }}
+
+          {% if form.picture.errors %}
+            {{ form.picture(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.picture.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.picture(class="form-control") }}
+          {% endif %}
         </div>
       </div>
       <div class="row mb-3">

@@ -3,6 +3,7 @@ from pyblog.ext import auth
 from pyblog.ext.database import db
 from pyblog.models import User
 from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from pyblog.blueprints.user import utils
 
 users = Blueprint('users', __name__)
 
@@ -75,6 +76,13 @@ def me():
             flash('Incorrect password.', 'error')
             return redirect(url_for('users.me'))
 
+        print(form.picture.data)
+        print(request.files)
+
+        if form.picture.data:
+            picture_file = utils.save_picture(form.picture.data)
+            current_user.profile_picture = picture_file
+
         current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.bio = form.bio.data
@@ -96,12 +104,21 @@ def me():
         form.experience_in.data = current_user.experience_in
         form.looking_to.data = current_user.looking_to
 
+    for error in form.currently_learning.errors:
+        flash(error, category='warning')
+
+    for error in form.experience_in.errors:
+        flash(error, category='warning')
+
+    for error in form.looking_to.errors:
+        flash(error, category='warning')
+
     return render_template('profile.html', form=form)
 
 
 @users.route('/<string:username>', methods=['GET', 'POST'])
 def user_page(username: str):
-    user = User.query.filter_by(username=username).first()
+    user: User = User.query.filter_by(username=username).first()
     if not user:
         flash('User not found.', 'warning')
         return redirect(url_for('main.index'))

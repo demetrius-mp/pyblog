@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed, FileField
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, HiddenField
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
@@ -40,6 +41,7 @@ class LoginForm(FlaskForm):
 
 
 class UpdateProfileForm(FlaskForm):
+    picture = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=30)])
     email = StringField('Email',
@@ -47,9 +49,14 @@ class UpdateProfileForm(FlaskForm):
     bio = StringField('Bio', validators=[DataRequired(), Length(min=0, max=150)], widget=TextArea())
     full_name = StringField('Full name', validators=[DataRequired(), Length(min=1, max=100)])
     password = PasswordField('Password', validators=[DataRequired()])
-    currently_learning = HiddenField('Currently learning', validators=[InputRequired(), Length(min=1, max=30)])
-    experience_in = HiddenField('Experience in', validators=[InputRequired(), Length(min=1, max=30)])
-    looking_to = HiddenField('Looking to', validators=[InputRequired(), Length(min=1, max=30)])
+    currently_learning = HiddenField('Currently learning',
+                                     validators=[InputRequired(message='Currently learning field can\'t be empty'),
+                                                 Length(min=1, max=30)])
+    experience_in = HiddenField('Experience in',
+                                validators=[InputRequired(message='Experience in field can\'t be empty'),
+                                            Length(min=1, max=30)])
+    looking_to = HiddenField('Looking to', validators=[InputRequired(message='Looking to field can\'t be empty'),
+                                                       Length(min=1, max=30)])
     submit = SubmitField('Confirm changes')
 
     # noinspection PyMethodMayBeStatic
@@ -65,3 +72,18 @@ class UpdateProfileForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
+
+    # noinspection PyMethodMayBeStatic
+    def validate_currently_learning(self, currently_learning):
+        if currently_learning.data.strip() == '':
+            raise ValidationError('You can\'t leave the "Currently learning" field empty.')
+
+    # noinspection PyMethodMayBeStatic
+    def validate_experience_in(self, experience_in):
+        if experience_in.data.strip() == '':
+            raise ValidationError('You can\'t leave the "Experience in" field empty.')
+
+    # noinspection PyMethodMayBeStatic
+    def validate_looking_to(self, looking_to):
+        if looking_to.data.strip() == '':
+            raise ValidationError('You can\'t leave the "Looking to" field empty.')
