@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, HiddenField
 from wtforms.widgets import TextArea
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
 from pyblog.models import User
 from pyblog.ext import auth
 
@@ -47,6 +47,9 @@ class UpdateProfileForm(FlaskForm):
     bio = StringField('Bio', validators=[DataRequired(), Length(min=0, max=150)], widget=TextArea())
     full_name = StringField('Full name', validators=[DataRequired(), Length(min=1, max=100)])
     password = PasswordField('Password', validators=[DataRequired()])
+    currently_learning = HiddenField('Currently learning', validators=[InputRequired(), Length(min=1, max=30)])
+    experience_in = HiddenField('Experience in', validators=[InputRequired(), Length(min=1, max=30)])
+    looking_to = HiddenField('Looking to', validators=[InputRequired(), Length(min=1, max=30)])
     submit = SubmitField('Confirm changes')
 
     # noinspection PyMethodMayBeStatic

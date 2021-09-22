@@ -68,20 +68,29 @@ def logout():
 @users.route('/me', methods=['GET', 'POST'])
 @auth.login_required
 def me():
+    current_user: User = auth.current_user
     form = UpdateProfileForm()
     if form.validate_on_submit():
-        auth.current_user.username = form.username.data
-        auth.current_user.email = form.email.data
-        auth.current_user.bio = form.bio.data
-        auth.current_user.full_name = form.full_name.data
-
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.bio = form.bio.data
+        current_user.full_name = form.full_name.data
+        current_user.currently_learning = form.currently_learning.data
+        current_user.experience_in = form.experience_in.data
+        current_user.looking_to = form.looking_to.data
         db.session.commit()
+
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.me'))
     elif request.method == 'GET':
-        form.email.data = auth.current_user.email
-        form.username.data = auth.current_user.username
-        form.bio.data = auth.current_user.bio
-        form.full_name.data = auth.current_user.full_name
+        form.email.data = current_user.email
+        form.username.data = current_user.username
+        form.bio.data = current_user.bio
+        form.full_name.data = current_user.full_name
+        form.currently_learning.data = current_user.currently_learning
+        form.experience_in.data = current_user.experience_in
+        form.looking_to.data = current_user.looking_to
+
+    print(form.errors)
 
     return render_template('me.html', form=form)

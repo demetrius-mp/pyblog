@@ -10,4 +10,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(512))
     full_name = db.Column(db.String(100))
     bio = db.Column(db.String(150))
-    # currently_learning = db.Column(db.String(25))
+    currently_learning = db.Column(db.String(25))
+    experience_in = db.Column(db.String(25))
+    looking_to = db.Column(db.String(25))

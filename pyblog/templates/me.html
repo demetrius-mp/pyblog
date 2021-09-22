@@ -10,7 +10,7 @@
           <div class="card-body">
             <h1>Profile information</h1>
             <form action="{{ url_for('users.me') }}" method="POST">
-              {{ form.hidden_tag() }}
+              {{ form.csrf_token() }}
               <div class="row mb-3">
                 <div class="col">
                   <label for="picture" class="form-label">
@@ -102,13 +102,16 @@
                   {{ form.submit(class="btn btn-primary") }}
                 </div>
               </div>
+              {{ form.currently_learning() }}
+              {{ form.experience_in() }}
+              {{ form.looking_to() }}
             </form>
           </div>
         </div>
       </div>
-    <div class="col-lg-4 order-0 order-lg-1">
-      {% include 'components/profile_cards/editable.html' %}
-    </div>
+      <div class="col-lg-4 order-0 order-lg-1">
+        {% include 'components/profile_cards/editable.html' %}
+      </div>
     </div>
   </main>
 {% endblock content %}

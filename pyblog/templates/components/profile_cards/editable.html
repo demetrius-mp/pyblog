@@ -11,8 +11,7 @@
         <div class="row justify-content-center">
           <h4>demetrius-mp</h4>
           <p id="cardBio" class="text-secondary mb-2 col-10">
-            Studying software engineering since 2019. Back-end dev
-            with Flask.
+            {{ current_user.bio }}
           </p>
         </div>
         <button disabled class="btn btn-primary">Follow</button>
@@ -30,11 +29,12 @@
         </h6>
         <div class="mt-2 mt-lg-0">
           <span
+            id="editableCurrentlyLearning"
             spellcheck="false"
             contenteditable="true"
-            class="editable text-secondary"
+            class="editable text-secondary m-0"
           >
-            Flask
+            {{ current_user.currently_learning }}
           </span>
         </div>
       </li>
@@ -48,11 +48,12 @@
         </h6>
         <div class="mt-2 mt-lg-0">
           <span
+            id="editableExperienceIn"
             spellcheck="false"
             contenteditable="true"
             class="editable text-secondary"
           >
-            Python
+            {{ current_user.experience_in }}
           </span>
         </div>
       </li>
@@ -66,11 +67,12 @@
         </h6>
         <div class="mt-2 mt-lg-0">
           <span
+            id="editableLookingTo"
             spellcheck="false"
             contenteditable="true"
             class="editable text-secondary"
           >
-            ReactJS
+            {{ current_user.looking_to }}
           </span>
         </div>
       </li>
