@@ -139,10 +139,9 @@ def user_page(username: str):
 @users.route('/dashboard')
 @auth.login_required
 def dashboard():
-    current_user = auth.current_user
-
-    draft_posts: Iterator[Post] = list(filter(lambda p: not p.is_published, current_user.posts))
-    published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, current_user.posts))
+    posts = auth.current_user.posts
+    draft_posts: Iterator[Post] = list(filter(lambda p: not p.is_published, posts))
+    published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, posts))
 
     return render_template('users/dashboard.html', draft_posts=draft_posts,
                            published_posts=published_posts)
