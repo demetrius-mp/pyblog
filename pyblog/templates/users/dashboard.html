@@ -1,0 +1,37 @@
+{% extends 'layouts/col8_col4.html' %}
+{% from 'posts/macro_post_card.html' import post_cards with context %}
+
+{% block col8 %}
+  {% if draft_posts %}
+    <div id="draftPosts">
+      <h1>
+        Your draft posts
+      </h1>
+      {{ post_cards(posts=draft_posts) }}
+    </div>
+  {% endif %}
+
+  {% if published_posts %}
+    <div id="publishedPosts">
+      <h1>
+        Your published posts
+      </h1>
+      {{ post_cards(posts=published_posts) }}
+    </div>
+  {% endif %}
+
+  {% if not (draft_posts or published_posts) %}
+    <h3>
+      You don't have any posts yet &#128532.
+    </h3>
+    <h4>
+      <a class="" href="">Create a new post!</a>
+    </h4>
+  {% endif %}
+{% endblock col8 %}
+
+{% block col4 %}
+  <div id="statistics">
+    <h3>Statistics</h3>
+  </div>
+{% endblock col4 %}

@@ -59,7 +59,11 @@
         <div class="card-footer d-flex justify-content-between">
           <small class="text-muted">
             {% if post %}
-              Posted in {{ format_date(post.posted_in) }}
+              {% if post.is_published %}
+                Posted in {{ format_date(post.posted_in) }}
+              {% else %}
+                Last edited in {{ format_date(post.posted_in) }}
+              {% endif %}
             {% else %}
               Posted in {{ utc_now() }}
             {% endif %}

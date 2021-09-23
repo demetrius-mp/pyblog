@@ -1,3 +1,5 @@
+from typing import Iterator
+
 from flask import url_for, flash, redirect, Blueprint, request, render_template
 
 from pyblog.blueprints.user import utils
@@ -132,3 +134,15 @@ def user_page(username: str):
     posts: list[Post] = list(filter(lambda p: p.is_published, user.posts))
 
     return render_template('users/user_page.html', user=user, posts=posts)
+
+
+@users.route('/dashboard')
+@auth.login_required
+def dashboard():
+    current_user = auth.current_user
+
+    draft_posts: Iterator[Post] = list(filter(lambda p: not p.is_published, current_user.posts))
+    published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, current_user.posts))
+
+    return render_template('users/dashboard.html', draft_posts=draft_posts,
+                           published_posts=published_posts)
