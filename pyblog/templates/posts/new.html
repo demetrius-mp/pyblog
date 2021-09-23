@@ -9,14 +9,18 @@
 
 {% block col8 %}
   <div id="createPost">
-    <h1>Create post</h1>
+    {% if post %}
+      <h1>Edit post</h1>
+    {% else %}
+      <h1>Create post</h1>
+    {% endif %}
     {{ post_form(form=form) }}
   </div>
 {% endblock col8 %}
 
 {% block col4 %}
   <h1>Card preview.</h1>
-  {{ post_card() }}
+  {{ post_card(post=post) }}
   <hr class="my-1">
 {% endblock col4 %}
 

@@ -5,7 +5,7 @@ from slugify import slugify
 from pyblog.blueprints.posts.forms import CreatePostForm
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
-from pyblog.models import Post
+from pyblog.models import Post, User
 
 posts = Blueprint('posts', __name__)
 
@@ -40,3 +40,20 @@ def new():
             flash(error, category='warning')
 
     return render_template('posts/new.html', title='Create Post', form=form)
+
+
+@posts.route('/edit/<int:post_id>', methods=['GET', 'POST'])
+@auth.login_required
+def edit(post_id: int):
+    post: Post = Post.query.get(post_id)
+    if not post or post.user_id != auth.current_user.id:
+        flash('Post not found', 'error')
+        return redirect(url_for('main.index'))
+
+    form = CreatePostForm()
+    form.title.data = post.title
+    form.description.data = post.description
+    form.content.data = post.content
+
+    return render_template('posts/new.html', title='Edit post', form=form,
+                           post=post)
