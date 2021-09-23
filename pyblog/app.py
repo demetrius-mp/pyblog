@@ -1,6 +1,6 @@
 from flask import Flask
 
-from pyblog.ext import configuration
+from pyblog.extensions import configuration
 
 
 def create_app():

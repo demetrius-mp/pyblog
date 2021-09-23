@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 
-from pyblog.ext.database import db
+from pyblog.extensions.database import db
 
 migrate = Migrate()
 

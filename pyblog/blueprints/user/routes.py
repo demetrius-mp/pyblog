@@ -1,7 +1,7 @@
 from flask import url_for, flash, redirect, Blueprint, request, render_template
 
-from pyblog.ext import auth
-from pyblog.ext.database import get_session
+from pyblog.extensions import auth
+from pyblog.extensions.database import get_session
 from pyblog.models import User, Post
 from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from pyblog.blueprints.user import utils

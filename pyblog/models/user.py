@@ -1,4 +1,4 @@
-from pyblog.ext.database import db
+from pyblog.extensions.database import db
 from flask_login import UserMixin
 
 

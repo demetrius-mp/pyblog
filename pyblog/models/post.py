@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pyblog.ext.database import db
+from pyblog.extensions.database import db
 
 
 class Post(db.Model):

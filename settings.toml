@@ -5,9 +5,9 @@ SQLALCHEMY_TRACK_MODIFICATIONS = "False"
 TITLE = "PyBlog"
 SECRET_KEY = "VpoOsy27e81PE6YCAOKs/7gNs3Bx+oCdRPMl1M1K+5I="
 EXTENSIONS = [
-    "pyblog.ext.database:init_app",
-    "pyblog.ext.migration:init_app",
-    "pyblog.ext.auth:init_app",
+    "pyblog.extensions.database:init_app",
+    "pyblog.extensions.migration:init_app",
+    "pyblog.extensions.auth:init_app",
     "pyblog.blueprints.user:init_app",
     "pyblog.blueprints.main:init_app",
     "pyblog.blueprints.posts:init_app",

@@ -3,8 +3,8 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from slugify import slugify
 
 from pyblog.blueprints.posts.forms import CreatePostForm
-from pyblog.ext import auth
-from pyblog.ext.database import get_session
+from pyblog.extensions import auth
+from pyblog.extensions.database import get_session
 from pyblog.models import Post
 
 posts = Blueprint('posts', __name__)
