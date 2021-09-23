@@ -16,7 +16,7 @@
       </div>
       <div class="col-lg-4">
         <h1>Card preview.</h1>
-        {{ post_card(user=current_user) }}
+        {{ post_card() }}
       <hr class="my-1">
       </div>
     </div>
@@ -26,5 +26,5 @@
 {% block script %}
   <script src="{{ url_for('static', filename='vendor/easymde/highlight.min.js') }}"></script>
   <script src="{{ url_for('static', filename='vendor/easymde/easymde.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/create_post.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/posts/new.js') }}"></script>
 {% endblock script %}
