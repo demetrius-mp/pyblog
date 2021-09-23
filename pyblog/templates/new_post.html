@@ -10,38 +10,12 @@
 {% block content %}
   <main class="container mt-3">
     <div class="row justify-content-center">
-      <div class="col-lg-8 order-lg-0 order-1">
+      <div class="col-lg-8">
         <h1>Create post</h1>
         {{ post_form(form=form) }}
-{#        <div class="mb-3">#}
-{#          <label for="title" class="form-label">Title</label>#}
-{#          <input type="text" class="form-control" id="title" name="title" placeholder="My first post on PyBlog!">#}
-{#        </div>#}
-{##}
-{#        <div class="mb-3">#}
-{#          <label class="form-label" for="tags">Tags</label>#}
-{#          <input class="form-control" type="text" name="tags" id="tags" placeholder="#html #frontend">#}
-{#          <p class="float-end text-muted"><span id="tagsCounter">0</span> / 5 tags</p>#}
-{#        </div>#}
-{##}
-{#        <div class="mb-3">#}
-{#          <label class="form-label" for="description">Description</label>#}
-{#          <textarea placeholder="Maximum 300 characters description" class="form-control" name="description" rows="4"#}
-{#                    id="description" maxlength="300"></textarea>#}
-{#          <p class="float-end text-muted"><span id="descriptionCharCounter">0</span> / 300 characters</p>#}
-{#        </div>#}
-{##}
-{#        <div class="mb-3">#}
-{#          <label for="content" class="form-label">Content</label>#}
-{#          <textarea name="content" id="content"></textarea>#}
-{#        </div>#}
-{##}
-{#        <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-end">#}
-{#          <button id="saveDraft" class="btn btn-secondary me-md-2" type="button">Save draft</button>#}
-{#          <button id="publish" class="btn btn-primary" type="button">Publish</button>#}
-{#        </div>#}
       </div>
-      <div class="col-lg-4 order-0 order-lg-1">
+      <div class="col-lg-4">
+        <h1>Card preview.</h1>
         {{ post_card(user=current_user) }}
       <hr class="my-1">
       </div>

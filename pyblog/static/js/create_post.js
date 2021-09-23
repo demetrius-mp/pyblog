@@ -9,17 +9,43 @@ const easymde = new EasyMDE({
 });
 
 
-const $description = $('#description')
+const $descriptionInput = $('#description')
+const $descriptionCard = $('#descriptionCard')
+const descriptionMockText = $descriptionCard.text()
 const $descriptionCharCounter = $('#descriptionCharCounter')
+
+const $titleInput = $('#title')
+const $titleCard = $('#titleCard')
+const titleMockText = $titleCard.text()
+
 const $tags = $('#tags')
 const $tagsCounter = $('#tagsCounter')
 
-$description.on('input', () => {
-  const numCharacters = $description.val().length
-  $descriptionCharCounter.text(numCharacters)
+
+$titleInput.on('input', () => {
+  const titleText = $titleInput.val()
+
+  if (titleText.length === 0) {
+    $titleCard.text(titleMockText)
+  }
+  else {
+    $titleCard.text(titleText)
+  }
 })
 
-$tags.on('input', (e) => {
+$descriptionInput.on('input', () => {
+  const descriptionText = $descriptionInput.val()
+  const count = descriptionText.length
+  $descriptionCharCounter.text(count)
+
+  if (count === 0) {
+    $descriptionCard.text(descriptionMockText)
+  } else {
+    $descriptionCard.text(descriptionText)
+  }
+})
+
+$tags.on('input', () => {
   const numTags = $tags.val().replace(/[^#]/g, "").length
   if (numTags <= 5) {
     $tagsCounter.text(numTags)

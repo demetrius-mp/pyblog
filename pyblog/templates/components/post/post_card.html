@@ -11,7 +11,7 @@
                     {{ post.title }}
                   </a>
                 {% else %}
-                  <a class="text-decoration-none" style="cursor: pointer;">
+                  <a id="titleCard" class="text-decoration-none" style="cursor: pointer;">
                     Title of your post in PyBlog!
                   </a>
                 {% endif %}
@@ -33,15 +33,17 @@
             <a class="text-muted text-decoration-none" href="">#framework</a>
             <a class="text-muted text-decoration-none" href="">#seo</a>
           </h6>
-          <p class="card-text">
-            {% if post %}
+          {% if post %}
+            <p class="card-text">
               {{ post.description }}
-            {% else %}
+            </p>
+          {% else %}
+            <p id="descriptionCard" class="card-text">
               This is the preview of your post card! It will appear on the feed exactly like this, except for the date
               and time. Click 'Save draft' to save the post, and press 'Publish' to make it visible to other members.
               This card is rendered as you type in the fields. Happy posting!
-            {% endif %}
-          </p>
+            </p>
+          {% endif %}
         </div>
         <div class="card-footer d-flex justify-content-between">
           <small class="text-muted">
