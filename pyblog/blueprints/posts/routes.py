@@ -39,4 +39,4 @@ def new():
         for error in v:
             flash(error, category='warning')
 
-    return render_template('new_post.html', title='Create Post', form=form)
+    return render_template('posts/new.html', title='Create Post', form=form)

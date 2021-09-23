@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% from 'components/post/post_card.html' import post_card %}
-{% from 'components/post/post_form.html' import post_form %}
+{% from 'posts/macro_post_card.html' import post_card %}
+{% from 'posts/macro_post_form.html' import post_form %}
 
 {% block head %}
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/easymde/github.min.css') }}">
