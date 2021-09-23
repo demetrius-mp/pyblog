@@ -1,4 +1,20 @@
 {% extends 'base.html' %}
+{% from 'posts/macro_post_card.html' import post_card with context %}
+
 {% block content %}
-  <h1>Homepage</h1>
+  <main class="container mt-4">
+  <div class="row">
+    <div class="col-lg-8 order-1 order-lg-0">
+      <div id="posts">
+        {% for post in posts %}
+          {{ post_card(post=post) }}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-lg-4 order-0 order-lg-1">
+
+    </div>
+  </div>
+  </main>
 {% endblock content %}

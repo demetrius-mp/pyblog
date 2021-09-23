@@ -19,7 +19,9 @@
               {{ user.bio }}
             </p>
           </div>
-          <button class="btn {% if editable %}disabled{% endif %} btn-primary">Follow</button>
+          <button class="btn btn-primary {% if user.id == current_user.id %}disabled{% endif %}">
+            Follow
+          </button>
         </div>
       </div>
       <hr class="my-3"/>
@@ -33,16 +35,15 @@
             Currently learning
           </div>
           <div>
-            <span
-              {% if editable %}
-                id="editableCurrentlyLearning"
-                spellcheck="false"
-                class="editable text-secondary"
-              {% else %}
-                class="text-secondary"
-              {% endif %}>
-              {{ user.currently_learning }}
-            </span>
+            {% if editable %}
+              <span class="editable text-secondary" id="editableCurrentlyLearning" spellcheck="false">
+                {{ user.currently_learning }}
+              </span>
+            {% else %}
+              <span class="text-secondary">
+                {{ user.currently_learning }}
+              </span>
+            {% endif %}
           </div>
         </li>
         <li
@@ -55,37 +56,36 @@
             Experience in
           </div>
           <div>
-          <span
             {% if editable %}
-              id="editableExperienceIn"
-              spellcheck="false"
-              class="editable text-secondary"
+              <span class="editable text-secondary" id="editableExperienceIn" spellcheck="false">
+                {{ user.experience_in }}
+              </span>
             {% else %}
-              class="text-secondary"
-            {% endif %}>
-            {{ user.experience_in }}
-          </span>
+              <span class="text-secondary">
+                {{ user.experience_in }}
+              </span>
+            {% endif %}
           </div>
         </li>
         <li
           class="list-group-item
-        d-flex justify-content-between
-        align-items-center flex-wrap">
+          d-flex justify-content-between
+          align-items-center flex-wrap"
+        >
           <div>
             <i class="bi bi-skip-forward-fill"></i>
             Looking to
           </div>
           <div>
-          <span
             {% if editable %}
-              id="editableLookingTo"
-              spellcheck="false"
-              class="editable text-secondary"
+              <span class="editable text-secondary" id="editableLookingTo" spellcheck="false">
+                {{ user.looking_to }}
+              </span>
             {% else %}
-              class="text-secondary"
-            {% endif %}>
-            {{ user.looking_to }}
-          </span>
+              <span class="text-secondary">
+                {{ user.looking_to }}
+              </span>
+            {% endif %}
           </div>
         </li>
       </ul>

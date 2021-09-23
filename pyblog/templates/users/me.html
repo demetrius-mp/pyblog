@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% from 'components/profile/macros/info_card.html' import profile_card %}
+{% from 'users/macro_profile_card.html' import profile_card with context %}
 
 {% if form %}
   {% block head %}

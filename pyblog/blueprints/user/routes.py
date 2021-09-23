@@ -1,9 +1,8 @@
 from flask import url_for, flash, redirect, Blueprint, request, render_template
-from sqlalchemy.orm import Session
 
 from pyblog.ext import auth
 from pyblog.ext.database import get_session
-from pyblog.models import User
+from pyblog.models import User, Post
 from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from pyblog.blueprints.user import utils
 
@@ -120,7 +119,7 @@ def me():
     for error in form.looking_to.errors:
         flash(error, category='warning')
 
-    return render_template('profile.html', form=form)
+    return render_template('users/me.html', form=form)
 
 
 @users.route('/<string:username>', methods=['GET', 'POST'])
@@ -130,4 +129,6 @@ def user_page(username: str):
         flash('User not found.', 'warning')
         return redirect(url_for('main.index'))
 
-    return render_template('profile.html', user=user)
+    posts: list[Post] = list(filter(lambda p: p.is_published, user.posts))
+
+    return render_template('users/user_page.html', user=user, posts=posts)

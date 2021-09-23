@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% from 'components/profile/macros/info_card.html' import profile_card %}
+{% from 'users/macro_profile_card.html' import profile_card with context %}
+{% from 'posts/macro_post_card.html' import post_card with context %}
 
 {% if form %}
   {% block head %}
@@ -11,19 +12,22 @@
   <main class="container mt-4">
     <div class="row mb-3">
       <div class="col-lg-8 order-lg-0 order-1">
-        {% if form %}
-          <div id="profileForm">
-            {% include 'components/profile/form_card.html' %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="col-lg-4 order-0 order-lg-1">
-        <div id="profileCard">
-          {% if form %}
-            {{ profile_card(user=current_user, editable=True) }}
-          {% else %}
-            {{ profile_card(user=user, editable=False) }}
+        <h1>
+          Posts from <i>@{{ user.username }}</i>
+        </h1>
+        <hr>
+        <div id="posts">
+          {% if not posts %}
+            <h4>Nothing here yet...</h4>
           {% endif %}
+          {% for post in posts %}
+            {{ post_card(post=post) }}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-4 order-lg-1 order-0">
+        <div id="profileCard">
+          {{ profile_card(user=user) }}
         </div>
       </div>
     </div>
