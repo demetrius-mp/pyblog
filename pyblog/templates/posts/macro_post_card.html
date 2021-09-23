@@ -77,3 +77,9 @@
     </div>
   </div>
 {% endmacro %}
+
+{% macro post_cards(posts) %}
+  {% for post in posts %}
+    {{ post_card(post=post) }}
+  {% endfor %}
+{% endmacro %}

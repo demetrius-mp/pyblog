@@ -1,3 +1,4 @@
+{% from 'base/navbar.html' import navbar with context %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,10 +8,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons-1.5.0/bootstrap-icons.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-  <link rel="icon"
-        type="image/x-icon"
-        href="{{ url_for('static', filename='svg/favicon.svg') }}"
-  >
+  <link rel="icon" href="{{ url_for('static', filename='svg/favicon.svg') }}" type="image/x-icon">
   {% block head %}{% endblock head %}
 
   {% if title %}
@@ -22,14 +20,14 @@
 </head>
 <body>
 
-{% include 'components/navbar.html' %}
+{{ navbar(login_form=login_form, register_form=registration_form) }}
 
 {% block content %}{% endblock content %}
 
 <script src="{{ url_for('static', filename='vendor/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/toastr/toastr.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/base.js') }}"></script>
+<script src="{{ url_for('static', filename='js/base/base.js') }}"></script>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}

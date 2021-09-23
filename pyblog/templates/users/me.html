@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% from 'users/macro_profile_card.html' import profile_card with context %}
 {% from 'users/macro_form_card.html' import form_card with context %}
 
@@ -25,5 +25,5 @@
   </main>
 {% endblock content %}
 {% block script %}
-  <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/users/me.js') }}"></script>
 {% endblock script %}

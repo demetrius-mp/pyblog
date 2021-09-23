@@ -1,0 +1,68 @@
+{% macro navbar(login_form=None, register_form=None) %}
+
+  {% if login_form and register_form %}
+    {% from 'base/macro_modal_login.html' import modal_login %}
+    {% from 'base/macro_modal_register.html' import modal_register %}
+    {{ modal_login(form=login_form) }}
+    {{ modal_register(form=register_form) }}
+  {% endif %}
+
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">
+        <i class="bi bi-blockquote-left"></i> PyBlog
+      </a>
+      {% if current_user.is_authenticated %}
+        <ul class="nav">
+          <li class="nav-item me-3">
+            <a class="btn btn-primary" href="{{ url_for('posts.new') }}">
+              Create post
+            </a>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown dropleft pe-2">
+              <img
+                src="{{ url_for('static', filename='profile_pics/' + current_user.profile_picture) }}"
+                alt="Profile picture"
+                class="rounded-circle"
+                data-bs-toggle="dropdown"
+                width="38"
+                style="cursor: pointer"
+              />
+              <div class="dropdown-menu dropdown-menu-end" style="position: absolute;">
+                <a class="dropdown-item" href="{{ url_for('users.me') }}">
+                  My profile
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item text-danger" href="{{ url_for('users.logout') }}">
+                  Logout
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="nav">
+          <li class="nav-item">
+            <a id="openRegisterModal" data-bs-toggle="modal"
+               data-bs-target="#registerModal"
+               class="nav-link text-white"
+               style="cursor: pointer"
+            >
+              Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a id="openLoginModal" data-bs-toggle="modal"
+               data-bs-target="#loginModal"
+               class="nav-link text-white"
+               style="cursor: pointer"
+            >
+              Login
+            </a>
+          </li>
+        </ul>
+      {% endif %}
+    </div>
+  </nav>
+{% endmacro %}
