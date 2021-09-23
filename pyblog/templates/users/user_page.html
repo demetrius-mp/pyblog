@@ -1,35 +1,22 @@
-{% extends 'base/base.html' %}
+{% extends 'layouts/col8_col4.html' %}
 {% from 'users/macro_profile_card.html' import profile_card with context %}
-{% from 'posts/macro_post_card.html' import post_card with context %}
+{% from 'posts/macro_post_card.html' import post_cards with context %}
 
-{% if form %}
-  {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-  {% endblock head %}
-{% endif %}
+{% block col8 %}
+  <h1>
+    Posts from <i>@{{ user.username }}</i>
+  </h1>
+  <hr>
+  <div id="posts">
+    {% if not posts %}
+      <h4>Nothing here yet...</h4>
+    {% endif %}
+    {{ post_cards(posts=posts) }}
+  </div>
+{% endblock col8 %}
 
-{% block content %}
-  <main class="container mt-4">
-    <div class="row mb-3">
-      <div class="col-lg-8 order-lg-0 order-1">
-        <h1>
-          Posts from <i>@{{ user.username }}</i>
-        </h1>
-        <hr>
-        <div id="posts">
-          {% if not posts %}
-            <h4>Nothing here yet...</h4>
-          {% endif %}
-          {% for post in posts %}
-            {{ post_card(post=post) }}
-          {% endfor %}
-        </div>
-      </div>
-      <div class="col-lg-4 order-lg-1 order-0">
-        <div id="profileCard">
-          {{ profile_card(user=user) }}
-        </div>
-      </div>
-    </div>
-  </main>
-{% endblock content %}
+{% block col4 %}
+  <div id="profileCard">
+    {{ profile_card(user=user) }}
+  </div>
+{% endblock col4 %}

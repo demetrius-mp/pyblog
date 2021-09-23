@@ -1,29 +1,23 @@
-{% extends 'base/base.html' %}
+{% extends 'layouts/col8_col4.html' %}
 {% from 'users/macro_profile_card.html' import profile_card with context %}
 {% from 'users/macro_form_card.html' import form_card with context %}
 
-{% if form %}
-  {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-  {% endblock head %}
-{% endif %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock head %}
 
-{% block content %}
-  <main class="container mt-4">
-    <div class="row mb-3">
-      <div class="col-lg-8 order-lg-0 order-1">
-        <div id="profileForm">
-          {{ form_card(form=form) }}
-        </div>
-      </div>
-      <div class="col-lg-4 order-0 order-lg-1">
-        <div id="profileCard">
-          {{ profile_card(user=current_user, editable=True) }}
-        </div>
-      </div>
-    </div>
-  </main>
-{% endblock content %}
+{% block col8 %}
+  <div id="profileForm">
+    {{ form_card(form=form) }}
+  </div>
+{% endblock col8 %}
+
+{% block col4 %}
+  <div id="profileCard">
+    {{ profile_card(user=current_user, editable=True) }}
+  </div>
+{% endblock col4 %}
+
 {% block script %}
   <script src="{{ url_for('static', filename='js/users/me.js') }}"></script>
 {% endblock script %}

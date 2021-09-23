@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <main class="container mt-4 mb-3">
+    <div class="row">
+      <div class="col-lg-8 order-1 order-lg-0">
+        {% block col8 %}{% endblock col8 %}
+      </div>
+
+      <div class="col-lg-4 order-0 order-lg-1">
+        {% block col4 %}{% endblock col4 %}
+      </div>
+    </div>
+  </main>
+{% endblock content %}

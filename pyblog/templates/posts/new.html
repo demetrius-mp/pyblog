@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'layouts/col8_col4.html' %}
 {% from 'posts/macro_post_card.html' import post_card with context %}
 {% from 'posts/macro_post_form.html' import post_form with context %}
 
@@ -7,21 +7,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/easymde/easymde.min.css') }}">
 {% endblock head %}
 
-{% block content %}
-  <main class="container mt-3">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h1>Create post</h1>
-        {{ post_form(form=form) }}
-      </div>
-      <div class="col-lg-4">
-        <h1>Card preview.</h1>
-        {{ post_card() }}
-      <hr class="my-1">
-      </div>
-    </div>
-  </main>
-{% endblock content %}
+{% block col8 %}
+  <div id="createPost">
+    <h1>Create post</h1>
+    {{ post_form(form=form) }}
+  </div>
+{% endblock col8 %}
+
+{% block col4 %}
+  <h1>Card preview.</h1>
+  {{ post_card() }}
+  <hr class="my-1">
+{% endblock col4 %}
 
 {% block script %}
   <script src="{{ url_for('static', filename='vendor/easymde/highlight.min.js') }}"></script>
