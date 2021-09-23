@@ -1,5 +1,6 @@
-from pyblog.extensions.database import db
 from flask_login import UserMixin
+
+from pyblog.extensions.database import db
 
 
 class User(db.Model, UserMixin):

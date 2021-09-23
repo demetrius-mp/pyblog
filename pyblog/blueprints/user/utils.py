@@ -1,8 +1,8 @@
 import secrets
 from pathlib import Path
 
-from flask import current_app
 from PIL import Image
+from flask import current_app
 
 
 def save_picture(form_picture):

@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, HiddenField
-from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
-from pyblog.models import User
+from wtforms.widgets import TextArea
+
 from pyblog.extensions import auth
+from pyblog.models import User
 
 
 class RegistrationForm(FlaskForm):
