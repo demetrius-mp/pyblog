@@ -1,0 +1,25 @@
+{% extends 'layouts/col8_col4.html' %}
+{% from 'users/macro_profile_card.html' import profile_card with context %}
+{% from 'posts/macro_post_card.html' import post_card with context %}
+{% from 'posts/macro_post_view.html' import post_view %}
+
+{% block col8 %}
+  <div id="postContent"></div>
+{% endblock col8 %}
+
+{% block col4 %}
+  <div id="author">
+    <h1>About the author</h1>
+    {{ profile_card(user=post.user) }}
+  </div>
+  <hr>
+{% endblock col4 %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='vendor/markdown/marked.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/markdown/purify.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/posts/view.js') }}"></script>
+  <script>
+    setPostContent({{ post.id }})
+  </script>
+{% endblock script %}

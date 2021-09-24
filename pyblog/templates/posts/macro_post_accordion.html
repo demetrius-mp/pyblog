@@ -21,7 +21,7 @@
           row-cols-auto justify-content-between mt-1"
         >
           <div class="col-sm-auto">
-            <a href="">
+            <a href="{{ url_for('posts.view', username=post.user.username, post_id=post.id) }}">
               Check this out
             </a>
           </div>

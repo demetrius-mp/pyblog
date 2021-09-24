@@ -79,3 +79,13 @@ def edit(post_id: int):
 
     return render_template('posts/new.html', title='Edit post', form=form,
                            post=post)
+
+
+@posts.route('/<string:username>/<int:post_id>')
+def view(username: str, post_id: int):
+    post: Post = Post.query.get(post_id)
+    if not post or post.user.username != username:
+        flash('Post not found.', 'error')
+        return redirect(url_for('main.index'))
+
+    return render_template('posts/view.html', title='Post', post=post)

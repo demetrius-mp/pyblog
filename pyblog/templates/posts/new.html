@@ -3,8 +3,8 @@
 {% from 'posts/macro_post_form.html' import post_form with context %}
 
 {% block head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/easymde/github.min.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/easymde/easymde.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/markdown/github.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/markdown/easymde.min.css') }}">
 {% endblock head %}
 
 {% block col8 %}
@@ -25,7 +25,7 @@
 {% endblock col4 %}
 
 {% block script %}
-  <script src="{{ url_for('static', filename='vendor/easymde/highlight.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/easymde/easymde.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/markdown/highlight.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/markdown/easymde.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/posts/new.js') }}"></script>
 {% endblock script %}
