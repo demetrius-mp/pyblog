@@ -1,0 +1,1 @@
+FLASK_APP=pyblog.app:create_app
