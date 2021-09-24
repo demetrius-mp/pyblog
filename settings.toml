@@ -1,7 +1,5 @@
 [default]
-FLASK_ENV = "development"
 FLASK_APP = "pyblog.app:create_app"
-DEBUG = "True"
 SQLALCHEMY_TRACK_MODIFICATIONS = "False"
 TITLE = "PyBlog"
 EXTENSIONS = [
@@ -13,3 +11,6 @@ EXTENSIONS = [
     "pyblog.blueprints.posts:init_app",
     "pyblog.blueprints.jinja_env:init_app",
 ]
+
+[development]
+debug = "true"
