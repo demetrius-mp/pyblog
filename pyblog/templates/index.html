@@ -20,15 +20,15 @@
         </button>
       </form>
       <h5>Trending</h5>
-      <div class="accordion mb-3" id="recommendedPosts">
+      <div class="accordion mb-3" id="trendingPosts">
         {% for post in recommended_posts %}
-          {{ post_accordion(post=post) }}
+          {{ post_accordion(post=post, id_prefix='trending') }}
         {% endfor %}
       </div>
       <h5>Recommended by the editors</h5>
       <div class="accordion" id="recommendedPosts">
         {% for post in recommended_posts %}
-          {{ post_accordion(post=post) }}
+          {{ post_accordion(post=post, id_prefix='recommended') }}
         {% endfor %}
       </div>
     </div>

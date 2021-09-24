@@ -121,7 +121,7 @@ def me():
     for error in form.looking_to.errors:
         flash(error, category='warning')
 
-    return render_template('users/me.html', form=form)
+    return render_template('users/me.html', form=form, title='Me')
 
 
 @users.route('/<string:username>', methods=['GET', 'POST'])
@@ -133,7 +133,7 @@ def user_page(username: str):
 
     posts: list[Post] = list(filter(lambda p: p.is_published, user.posts))
 
-    return render_template('users/user_page.html', user=user, posts=posts)
+    return render_template('users/user_page.html', user=user, posts=posts, title='User')
 
 
 @users.route('/dashboard')
@@ -144,4 +144,4 @@ def dashboard():
     published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, posts))
 
     return render_template('users/dashboard.html', draft_posts=draft_posts,
-                           published_posts=published_posts)
+                           published_posts=published_posts, title='Dashboard')
