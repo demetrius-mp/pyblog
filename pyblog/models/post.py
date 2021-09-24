@@ -15,4 +15,4 @@ class Post(db.Model):
     is_published = db.Column(db.Boolean, nullable=False, default=False)
     posted_in = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    user = db.relationship('User', back_populates='posts')
+    user = db.relationship('User', back_populates='posts', lazy='joined')
