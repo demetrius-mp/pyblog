@@ -16,7 +16,12 @@ def index():
     login_form = LoginForm()
 
     posts: list[Post] = Post.query.filter_by(is_published=True).all()
+    recommended_posts: list[Post] = (
+        Post.query.filter_by(is_published=True)
+            .order_by(Post.id).limit(3).all()
+    )
 
     return render_template('index.html', title='Home',
                            registration_form=registration_form,
-                           login_form=login_form, posts=posts)
+                           login_form=login_form, posts=posts,
+                           recommended_posts=recommended_posts)

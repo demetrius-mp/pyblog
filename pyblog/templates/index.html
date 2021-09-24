@@ -1,7 +1,40 @@
 {% extends 'layouts/col8_col4.html' %}
 {% from 'posts/macro_post_card.html' import post_cards with context %}
+{% from 'posts/macro_post_accordion.html' import post_accordion with context %}
+
 {% block col8 %}
   <div id="posts">
+    <h1 class="mb-3">Posts from your community</h1>
     {{ post_cards(posts=posts) }}
   </div>
 {% endblock col8 %}
+
+{% block col4 %}
+  <div id="sidebar" class="mb-3">
+    <div class="card p-3">
+      <form class="mb-3" action="" method="GET">
+        <label for="search" class="form-label">Search</label>
+        <input
+          class="form-control"
+          placeholder="Search for tags, or keywords."
+          type="text"
+          id="search"
+          name="search"
+        >
+      </form>
+      <h5>Trending</h5>
+      <div class="accordion mb-3" id="recommendedPosts">
+        {% for post in recommended_posts %}
+          {{ post_accordion(post=post) }}
+        {% endfor %}
+      </div>
+      <h5>Recommended by the editors</h5>
+      <div class="accordion" id="recommendedPosts">
+        {% for post in recommended_posts %}
+          {{ post_accordion(post=post) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endblock col4 %}

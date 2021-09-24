@@ -1,0 +1,42 @@
+{% macro post_accordion(post) %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed"
+        type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseRecommended{{ post.id }}"
+      >
+        {{ post.title }}
+      </button>
+    </h2>
+    <div
+      class="accordion-collapse collapse"
+      id="collapseRecommended{{ post.id }}"
+      data-bs-parent="#recommendedPosts"
+    >
+      <div class="accordion-body">
+        {{ post.description }}
+        <div
+          class="row row-cols-lg-auto
+          row-cols-auto justify-content-between mt-1"
+        >
+          <div class="col-sm-auto">
+            <a href="">
+              Check this out
+            </a>
+          </div>
+          <div class="col-sm-auto">
+            <span class="text-secondary">
+              <span class="text-secondary">
+                by
+                <a class="text-muted" href="{{ url_for('users.user_page', username=post.user.username) }}">
+                  {{ post.user.username }}
+                </a>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
