@@ -1,3 +1,7 @@
+body {
+  font-family: Roboto-Light, serif;
+}
+
 #toast-container > .toast {
   background-image: none !important;
 }

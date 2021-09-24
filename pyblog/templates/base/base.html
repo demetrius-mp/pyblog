@@ -11,6 +11,27 @@
   <link rel="icon" href="{{ url_for('static', filename='svg/favicon.svg') }}" type="image/x-icon">
   {% block head %}{% endblock head %}
 
+  <style>
+    @font-face {
+      font-family: 'Roboto-Thin';
+      src: url('{{ url_for('static', filename='fonts/Roboto/Roboto-Thin.ttf') }}') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Roboto-Medium';
+      src: url('{{ url_for('static', filename='fonts/Roboto/Roboto-Medium.ttf') }}') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Roboto-Light';
+      src: url('{{ url_for('static', filename='fonts/Roboto/Roboto-Light.ttf') }}') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+
   {% if title %}
     <title>PyBlog - {{ title }}</title>
   {% else %}
