@@ -7,7 +7,7 @@
             <div class="col-sm">
               <h5 class="mb-0">
                 {% if post %}
-                  <a class="text-decoration-none" href="">
+                  <a class="text-decoration-none" id="titleCard" href="">
                     {{ post.title }}
                   </a>
                   {% if current_user.id == post.user.id %}
@@ -45,7 +45,7 @@
             <a class="text-muted text-decoration-none" href="">#seo</a>
           </h6>
           {% if post %}
-            <p class="card-text">
+            <p class="card-text" id="descriptionCard">
               {{ post.description }}
             </p>
           {% else %}

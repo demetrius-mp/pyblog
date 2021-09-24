@@ -13,10 +13,13 @@ const $descriptionInput = $('#description')
 const $descriptionCard = $('#descriptionCard')
 const descriptionMockText = $descriptionCard.text()
 const $descriptionCharCounter = $('#descriptionCharCounter')
+$descriptionCharCounter.text($descriptionInput.val().length)
 
 const $titleInput = $('#title')
 const $titleCard = $('#titleCard')
 const titleMockText = $titleCard.text()
+const $titleCharCounter = $('#titleCharCounter')
+$titleCharCounter.text($titleInput.val().length)
 
 const $tags = $('#tags')
 const $tagsCounter = $('#tagsCounter')
@@ -24,8 +27,10 @@ const $tagsCounter = $('#tagsCounter')
 
 $titleInput.on('input', () => {
   const titleText = $titleInput.val()
+  const count = titleText.length
+  $titleCharCounter.text(count)
 
-  if (titleText.length === 0) {
+  if (count === 0) {
     $titleCard.text(titleMockText)
   }
   else {

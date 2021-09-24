@@ -5,7 +5,7 @@ from slugify import slugify
 from pyblog.blueprints.posts.forms import CreatePostForm
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
-from pyblog.models import Post, User
+from pyblog.models import Post
 
 posts = Blueprint('posts', __name__)
 
@@ -51,6 +51,28 @@ def edit(post_id: int):
         return redirect(url_for('main.index'))
 
     form = CreatePostForm()
+
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.description = form.description.data
+        post.content = form.content.data
+        post.is_published = form.publish.data
+        session = get_session()
+        session.add(post)
+        session.commit()
+
+        if form.publish.data:
+            flash('Post published sucessfully!', category='success')
+        elif form.save_draft.data:
+            flash('Post edited succesfully!', category='info')
+
+        return redirect(url_for('main.index'))
+
+    else:
+        for k, v in form.errors.items():
+            for error in v:
+                flash(error, category='warning')
+
     form.title.data = post.title
     form.description.data = post.description
     form.content.data = post.content

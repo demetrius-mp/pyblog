@@ -3,7 +3,8 @@
     {{ form.csrf_token() }}
     <div class="mb-3">
       {{ form.title.label(class='form-label') }}
-      {{ form.title(class='form-control', placeholder='My first post on PyBlog!') }}
+      {{ form.title(class='form-control', placeholder='My first post on PyBlog!', maxlength="50") }}
+      <p class="float-end text-muted"><span id="titleCharCounter">0</span> / 50 characters</p>
     </div>
 
     <div class="mb-3">
