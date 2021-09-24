@@ -10,17 +10,14 @@
 {% endblock col8 %}
 
 {% block col4 %}
-  <div id="sidebar" class="mb-3">
+  <div id="sidebar">
     <div class="card p-3">
-      <form class="mb-3" action="" method="GET">
-        <label for="search" class="form-label">Search</label>
-        <input
-          class="form-control"
-          placeholder="Search for tags, or keywords."
-          type="text"
-          id="search"
-          name="search"
-        >
+      {{ search_form.search.label(class='form-label') }}
+      <form class="input-group mb-3" action="" method="GET">
+        {{ search_form.search(class='form-control', placeholder='Search for tags, or keywords.') }}
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-search"></i>
+        </button>
       </form>
       <h5>Trending</h5>
       <div class="accordion mb-3" id="recommendedPosts">
@@ -36,5 +33,5 @@
       </div>
     </div>
   </div>
-  <hr>
+  <hr class="mb-3 mb-lg-0">
 {% endblock col4 %}

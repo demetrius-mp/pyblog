@@ -7,7 +7,7 @@
 {% endblock head %}
 
 {% block col8 %}
-  <div id="profileForm">
+  <div id="profileForm" class="mb-3">
     {{ form_card(form=form) }}
   </div>
 {% endblock col8 %}
@@ -16,6 +16,7 @@
   <div id="profileCard">
     {{ profile_card(user=current_user, editable=True) }}
   </div>
+  <hr>
 {% endblock col4 %}
 
 {% block script %}
