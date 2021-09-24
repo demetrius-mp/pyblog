@@ -11,8 +11,8 @@ from pyblog.models import User
 class RegistrationForm(FlaskForm):
     username = StringField('Username', id='r_username',
                            validators=[DataRequired(),
-                                       Length(min=2, max=30,
-                                              message='Username must be between 2 and 20 characters long.')])
+                                       Length(min=3, max=30,
+                                              message='Username must be between 2 and 30 characters long.')])
     email = StringField('Email', id='r_email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', id='r_password', validators=[DataRequired()])

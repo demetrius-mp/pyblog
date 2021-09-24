@@ -25,15 +25,16 @@
           {{ form.full_name.label(class="form-label") }}
 
           {% if form.full_name.errors %}
-            {{ form.full_name(placeholder='John Doe', class="form-control is-invalid") }}
+            {{ form.full_name(placeholder='John Doe', class="form-control is-invalid", maxlength="100") }}
             <div class="invalid-feedback">
               {% for error in form.full_name.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
             </div>
           {% else %}
-            {{ form.full_name(placeholder='John Doe', class="form-control") }}
+            {{ form.full_name(placeholder='John Doe', class="form-control", maxlength="100") }}
           {% endif %}
+          <p class="float-end text-muted m-0"><span id="fullNameCharCounter">0</span> / 100 characters</p>
         </div>
       </div>
       <div class="row mb-3">
@@ -41,15 +42,16 @@
           {{ form.username.label(class="form-label") }}
 
           {% if form.username.errors %}
-            {{ form.username(placeholder='john-doe', class="form-control is-invalid") }}
+            {{ form.username(placeholder='john-doe', class="form-control is-invalid", maxlength="30") }}
             <div class="invalid-feedback">
               {% for error in form.username.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
             </div>
           {% else %}
-            {{ form.username(placeholder='john-doe', class="form-control") }}
+            {{ form.username(placeholder='john-doe', class="form-control", maxlength="30") }}
           {% endif %}
+          <p class="float-end text-muted m-0"><span id="usernameCharCounter">0</span> / 30 characters</p>
         </div>
       </div>
       <div class="row">
