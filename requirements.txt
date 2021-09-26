@@ -11,14 +11,14 @@ Flask-Migrate==3.1.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.15.1
 greenlet==1.1.1
-gunicorn=20.1.0
+gunicorn==20.1.0
 idna==3.2
 itsdangerous==2.0.1
 Jinja2==3.0.1
 Mako==1.1.5
 MarkupSafe==2.0.1
 Pillow==8.3.2
-psycopg2-binary=2.9.1
+psycopg2-binary==2.9.1
 python-dotenv==0.19.0
 python-slugify==5.0.2
 SQLAlchemy==1.4.23
