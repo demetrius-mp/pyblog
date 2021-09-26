@@ -1,7 +1,7 @@
 from flask import render_template, Blueprint, request, redirect
 
 from pyblog.blueprints.main.forms import SearchForm
-from pyblog.blueprints.user.forms import RegistrationForm, LoginForm
+from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, ForgotPasswordForm
 from pyblog.extensions import auth
 from pyblog.models import Post
 
@@ -36,10 +36,12 @@ def index():
                                recommended_posts=recommended_posts,
                                search_form=search_form)
 
+    forgot_password_form = ForgotPasswordForm()
     registration_form = RegistrationForm()
     login_form = LoginForm()
 
     return render_template('index.html', title='Home',
+                           forgot_password_form=forgot_password_form,
                            registration_form=registration_form,
                            login_form=login_form, posts=posts,
                            recommended_posts=recommended_posts,

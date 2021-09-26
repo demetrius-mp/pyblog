@@ -88,3 +88,16 @@ class UpdateProfileForm(FlaskForm):
     def validate_looking_to(self, looking_to):
         if looking_to.data.strip() == '':
             raise ValidationError('You can\'t leave the "Looking to" field empty.')
+
+
+class ForgotPasswordForm(FlaskForm):
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
+    submit = SubmitField('Request password')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset password')

@@ -1,10 +1,12 @@
-{% macro navbar(login_form=None, register_form=None) %}
+{% macro navbar(login_form=None, register_form=None, forgot_password_form=None) %}
 
-  {% if login_form and register_form %}
+  {% if login_form and register_form and forgot_password_form %}
     {% from 'base/macro_modal_login.html' import modal_login %}
     {% from 'base/macro_modal_register.html' import modal_register %}
+    {% from 'base/macro_modal_forgot_password.html' import modal_forgot_password %}
     {{ modal_login(form=login_form) }}
     {{ modal_register(form=register_form) }}
+    {{ modal_forgot_password(form=forgot_password_form) }}
   {% endif %}
 
   <nav class="navbar navbar-dark bg-dark">

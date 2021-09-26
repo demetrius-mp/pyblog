@@ -25,7 +25,13 @@
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-between">
-            <a class="text-muted" href="">
+            <a
+              class="text-muted"
+              data-bs-toggle="modal"
+              data-bs-dismiss="modal"
+              role="button"
+              href="#forgotPasswordModal"
+            >
               Forgot your password?
             </a>
             {{ form.submit(class="btn btn-primary") }}

@@ -2,7 +2,9 @@ import secrets
 from pathlib import Path
 
 from PIL import Image
-from flask import current_app
+from flask import current_app, url_for
+
+from pyblog.extensions.mail import send_mail
 
 
 def save_picture(form_picture):
@@ -18,3 +20,9 @@ def save_picture(form_picture):
     i.save(picture_path)
 
     return picture_filename
+
+
+def send_reset_password_email(email: str, token: str):
+    body = f'''To reset your password, visit the following link:
+                {url_for('users.reset_password', token=token, _external=True)}'''
+    send_mail('Reset password request', body, email)

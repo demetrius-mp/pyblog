@@ -1,0 +1,23 @@
+{% macro sidebar() %}
+  <div class="card p-3">
+    <label for="search" class="form-label">Search</label>
+    <form class="input-group mb-3" action="" method="GET">
+      <input class="form-control" type="text" id="search" name="search" placeholder="Search for tags, or keywords.">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-search"></i>
+      </button>
+    </form>
+    <h5>Trending</h5>
+    <div class="accordion mb-3" id="trendingPosts">
+      {% for post in recommended_posts %}
+        {{ post_accordion(post=post, id_prefix='trending') }}
+      {% endfor %}
+    </div>
+    <h5>Recommended by the editors</h5>
+    <div class="accordion" id="recommendedPosts">
+      {% for post in recommended_posts %}
+        {{ post_accordion(post=post, id_prefix='recommended') }}
+      {% endfor %}
+    </div>
+  </div>
+{% endmacro %}

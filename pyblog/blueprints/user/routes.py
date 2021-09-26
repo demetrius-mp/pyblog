@@ -3,7 +3,8 @@ from typing import Iterator
 from flask import url_for, flash, redirect, Blueprint, request, render_template
 
 from pyblog.blueprints.user import utils
-from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProfileForm, ForgotPasswordForm, \
+    ResetPasswordForm
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
 from pyblog.models import User, Post
@@ -64,6 +65,51 @@ def login():
             flash(error, category='warning')
 
     return redirect(url_for('main.index'))
+
+
+@users.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    if auth.current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    form = ForgotPasswordForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        user: User = User.query.filter_by(email=email).first()
+        if user is None:
+            return redirect(url_for('main.index'))
+
+        # TODO send reset email with token
+        token = user.get_reset_token()
+        utils.send_reset_password_email(user.email, token)
+        flash('Reset password email sent successfully!', 'success')
+
+    return redirect(url_for('main.index'))
+
+
+@users.route('/reset-password/<string:token>', methods=['GET', 'POST'])
+def reset_password(token: str):
+    if auth.current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    user: User = User.verify_reset_token(token)
+    if not user:
+        flash('Token expired.', 'error')
+        return redirect(url_for('main.index'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = auth.generate_password_hash(form.password.data)
+        user.password = hashed_password
+        session = get_session()
+        session.add(user)
+        session.commit()
+
+        flash('Password reset successfully!', 'success')
+
+        return redirect(url_for('main.index'))
+
+    return render_template('users/reset_password.html', form=form)
 
 
 @users.route('/logout')
