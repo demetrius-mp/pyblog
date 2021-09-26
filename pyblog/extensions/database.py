@@ -13,4 +13,5 @@ def get_session() -> Session:
 def init_app(app: Flask):
     db.init_app(app)
     with app.app_context():
-        event.listen(db.engine, 'connect', lambda con, rec: con.execute('pragma foreign_keys=ON'))
+        if app.config['SQLALCHEMY_DATABASE_URI'].startswith('sqlite'):
+            event.listen(db.engine, 'connect', lambda con, rec: con.execute('pragma foreign_keys=ON'))
