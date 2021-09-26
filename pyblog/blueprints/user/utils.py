@@ -26,3 +26,9 @@ def send_reset_password_email(email: str, token: str):
     body = f'''To reset your password, visit the following link:
                 {url_for('users.reset_password', token=token, _external=True)}'''
     send_mail('Reset password request', body, email)
+
+
+def send_activate_account_email(email: str, token: str):
+    body = f'''Click the following link to activate your account:
+                {url_for('users.activate_account', token=token, _external=True)}'''
+    send_mail('Activate account', body, email)

@@ -25,12 +25,16 @@ def register():
         session = get_session()
         session.add(user)
         session.commit()
-        session.refresh(user)
+        # session.refresh(user)
 
-        auth.login_user(user)
+        token = user.get_reset_token(expires_seconds=600)
+        utils.send_activate_account_email(user.email, token)
+
+        # auth.login_user(user)
         flash('Your account has been created!', 'success')
+        flash('Confirm your account by clicking the link we sent in your email.', 'info')
 
-        return redirect(url_for('users.me'))
+        # return redirect(url_for('users.me'))
 
     for k, v in form.errors.items():
         for error in v:
@@ -47,6 +51,10 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        if user and not user.is_active:
+            flash('Please, activate your account.', 'warning')
+            return redirect(url_for('main.index'))
+
         if user and auth.check_password_hash(user.password, form.password.data):
             auth.login_user(user, remember=form.remember.data)
             flash('Login successful.', 'success')
@@ -65,6 +73,27 @@ def login():
             flash(error, category='warning')
 
     return redirect(url_for('main.index'))
+
+
+@users.route('/activate-account/<string:token>', methods=['GET', 'POST'])
+def activate_account(token: str):
+    if auth.current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    user: User = User.verify_reset_token(token)
+    if not user:
+        flash('Token expired.', 'error')
+        return redirect(url_for('main.index'))
+
+    user.is_active = True
+    session = get_session()
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+
+    auth.login_user(user)
+    flash('Account activated successfully!', 'success')
+    return redirect(url_for('users.me'))
 
 
 @users.route('/forgot-password', methods=['POST'])

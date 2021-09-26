@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     experience_in = db.Column(db.String(25), default='Not provided')
     looking_to = db.Column(db.String(25), default='Not provided')
     profile_picture = db.Column(db.String(20), default='default.jpg')
+    is_active = db.Column(db.Boolean, default=False)
 
     posts = db.relationship('Post', back_populates='user')
 
