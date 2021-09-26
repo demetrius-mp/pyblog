@@ -79,10 +79,13 @@ def forgot_password():
         if user is None:
             return redirect(url_for('main.index'))
 
-        # TODO send reset email with token
         token = user.get_reset_token()
         utils.send_reset_password_email(user.email, token)
         flash('Reset password email sent successfully!', 'success')
+
+    for k, v in form.errors.items():
+        for error in v:
+            flash(error, category='warning')
 
     return redirect(url_for('main.index'))
 
