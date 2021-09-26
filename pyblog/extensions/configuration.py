@@ -1,6 +1,6 @@
 from dynaconf import FlaskDynaconf
 
-flask_dynaconf = FlaskDynaconf()
+flask_dynaconf = FlaskDynaconf(ENVVAR_PREFIX='')
 
 
 def init_app(app, **config):
