@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import event
@@ -11,6 +13,12 @@ def get_session() -> Session:
 
 
 def init_app(app: Flask):
+    env_vars = ('SQLALCHEMY_DATABASE_URI',)
+
+    for env_var in env_vars:
+        if env_var not in app.config:
+            app.config[env_var] = os.environ.get(env_var)
+
     db.init_app(app)
     with app.app_context():
         if app.config['SQLALCHEMY_DATABASE_URI'].startswith('sqlite'):

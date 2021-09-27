@@ -1,3 +1,4 @@
+import os
 from threading import Thread
 
 from flask import Flask, current_app
@@ -7,6 +8,13 @@ mail = Mail()
 
 
 def init_app(app: Flask):
+    env_vars = ('MAIL_PASSWORD', 'MAIL_PORT', 'MAIL_SERVER', 'MAIL_USERNAME',
+                'MAIL_USE_SSL')
+
+    for env_var in env_vars:
+        if env_var not in app.config:
+            app.config[env_var] = os.environ.get(env_var)
+
     mail.init_app(app)
 
 
