@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image
 from flask import current_app, url_for
 
-from pyblog.extensions.mail import send_mail
+from pyblog.extensions import mail
 
 
 def save_picture(form_picture):
@@ -25,10 +25,10 @@ def save_picture(form_picture):
 def send_reset_password_email(email: str, token: str):
     body = f'''To reset your password, visit the following link:
                 {url_for('users.reset_password', token=token, _external=True)}'''
-    send_mail('Reset password request', body, email)
+    mail.send_email('Reset password request', body, email)
 
 
 def send_activate_account_email(email: str, token: str):
     body = f'''Click the following link to activate your account:
                 {url_for('users.activate_account', token=token, _external=True)}'''
-    send_mail('Activate account', body, email)
+    mail.send_email('Activate account', body, email)
