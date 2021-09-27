@@ -1,4 +1,6 @@
 import os
+import random
+import string
 
 from flask import Flask
 
@@ -12,7 +14,8 @@ def create_app():
 
     for env_var in env_vars:
         if env_var not in app.config:
-            app.config[env_var] = os.environ.get(env_var)
+            random_secret_key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=32))
+            app.config[env_var] = os.environ.get(env_var, random_secret_key)
     configuration.init_app(app)
 
     return app
