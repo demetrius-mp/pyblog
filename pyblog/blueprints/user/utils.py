@@ -38,7 +38,7 @@ def send_activate_account_email(email: str, token: str):
     mail.send_email('Activate account', body, email)
 
 
-def delete_non_activated_user(user_id: int, delete_after: timedelta = timedelta(seconds=10)):
+def delete_non_activated_user(user_id: int, delete_after: timedelta = timedelta(minutes=10)):
     def func(app_: Flask, user_id_: int):
         with app_.app_context():
             user = User.query.get(user_id_)
