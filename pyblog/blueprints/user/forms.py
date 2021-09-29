@@ -26,11 +26,18 @@ class RegistrationForm(FlaskForm):
         if user and user.is_active:
             raise ValidationError('That username is taken. Please choose a different one.')
 
+        elif user and not user.is_active:
+            raise ValidationError('An inactive account is using this username. '
+                                  'Please, wait ~10 mins. or choose a different one')
+
     # noinspection PyMethodMayBeStatic
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user and user.is_active:
             raise ValidationError('That email is taken. Please choose a different one.')
+
+        elif user and not user.is_active:
+            raise ValidationError('An account confirmation email was already sent to this email.')
 
 
 class LoginForm(FlaskForm):

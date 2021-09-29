@@ -25,16 +25,14 @@ def register():
         session = get_session()
         session.add(user)
         session.commit()
-        # session.refresh(user)
+        session.refresh(user)
 
         token = user.get_reset_token(expires_seconds=600)
         utils.send_activate_account_email(user.email, token)
+        utils.delete_non_activated_user(user.id)
 
-        # auth.login_user(user)
         flash('Your account has been created!', 'success')
         flash('Confirm your account by clicking the link we sent in your email.', 'info')
-
-        # return redirect(url_for('users.me'))
 
     for k, v in form.errors.items():
         for error in v:
