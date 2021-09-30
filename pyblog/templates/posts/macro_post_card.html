@@ -1,4 +1,4 @@
-{% macro post_card(post=None) %}
+{% macro post_card(post=None, user_liked_posts_ids=[]) %}
   <div class="row">
     <div class="col-sm-12">
       <div class="card mb-3">
@@ -7,7 +7,8 @@
             <div class="col-sm">
               <h5 class="mb-0">
                 {% if post %}
-                  <a class="text-decoration-none" id="titleCard" href="{{ url_for('posts.view', username=post.user.username, post_id=post.id) }}">
+                  <a class="text-decoration-none" id="titleCard"
+                     href="{{ url_for('posts.view', username=post.user.username, post_id=post.id) }}">
                     {{ post.title }}
                   </a>
                   {% if current_user.id == post.user.id %}
@@ -69,11 +70,13 @@
             {% endif %}
           </small>
           <div>
-            <div class="d-inline me-2">
-              <i style="cursor: pointer;" class="bi bi-hand-thumbs-up me-1"></i>0
-            </div>
             <div class="d-inline">
-              <i style="cursor: pointer;" class="bi bi-hand-thumbs-down me-1"></i>0
+              {% if current_user.id in post.likes|map(attribute='user_id')|list %}
+                <i id="{{ post.id }}" style="cursor: pointer;" class="like bi bi-hand-thumbs-up-fill"></i>
+              {% else %}
+                <i id="{{ post.id }}" style="cursor: pointer;" class="like bi bi-hand-thumbs-up"></i>
+              {% endif %}
+              <span id="likesCount_{{ post.id }}">{{ post.likes|length }}</span>
             </div>
           </div>
         </div>
@@ -82,8 +85,8 @@
   </div>
 {% endmacro %}
 
-{% macro post_cards(posts) %}
+{% macro post_cards(posts, user_liked_posts_ids=user_liked_posts_ids) %}
   {% for post in posts %}
-    {{ post_card(post=post) }}
+    {{ post_card(post=post, user_liked_posts_ids=user_liked_posts_ids) }}
   {% endfor %}
 {% endmacro %}

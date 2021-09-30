@@ -9,3 +9,5 @@ class Like(db.Model):
 
     user = db.relationship('User', back_populates='likes')
     post = db.relationship('Post', back_populates='likes')
+
+    __table_args__ = (db.Index('uix_likes', "user_id", "post_id", unique=True),)
