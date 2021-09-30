@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     is_active = db.Column(db.Boolean, default=False)
 
     posts = db.relationship('Post', back_populates='user')
+    likes = db.relationship('Like', back_populates='user')
 
     def get_reset_token(self, expires_seconds: int = 18000) -> str:
         secret_key = current_app.config.secret_key
