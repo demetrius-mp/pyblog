@@ -207,9 +207,16 @@ def user_page(username: str):
         flash('User not found.', 'warning')
         return redirect(url_for('main.index'))
 
+    forgot_password_form = ForgotPasswordForm()
+    registration_form = RegistrationForm()
+    login_form = LoginForm()
+
     posts: list[Post] = list(filter(lambda p: p.is_published, user.posts))
 
-    return render_template('users/user_page.html', user=user, posts=posts, title='User')
+    return render_template('users/user_page.html', user=user, posts=posts,
+                           title='User', login_form=login_form,
+                           registration_form=registration_form,
+                           forgot_password_form=forgot_password_form)
 
 
 @users.route('/dashboard')
