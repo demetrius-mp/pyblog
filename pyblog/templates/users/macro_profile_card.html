@@ -19,9 +19,25 @@
               {{ user.bio }}
             </p>
           </div>
-          <button class="btn btn-primary {% if user.id == current_user.id %}disabled{% endif %}">
-            Follow
-          </button>
+          {% if user.id == current_user.id %}
+            <button id="follow_{{ user.username }}"
+                    class="follow btn btn-primary disabled"
+            >
+              Follow
+            </button>
+          {% elif current_user.is_authenticated and current_user.is_following(user) %}
+            <button id="follow_{{ user.username }}"
+                    class="follow btn btn-outline-danger"
+            >
+              Unfollow
+            </button>
+          {% else %}
+            <button id="follow_{{ user.username }}"
+                    class="follow btn btn-primary"
+            >
+              Follow
+            </button>
+          {% endif %}
         </div>
       </div>
       <hr class="my-3"/>

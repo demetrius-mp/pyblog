@@ -12,6 +12,7 @@ EXTENSIONS = [
     "pyblog.blueprints.main:init_app",
     "pyblog.blueprints.posts:init_app",
     "pyblog.blueprints.like:init_app",
+    "pyblog.blueprints.follow:init_app",
     "pyblog.blueprints.jinja_env:init_app",
 ]
 

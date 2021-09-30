@@ -6,6 +6,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous.exc import SignatureExpired
 
 from pyblog.extensions.database import db
+from pyblog.models.follow import followers
 
 
 class User(db.Model, UserMixin):
@@ -24,6 +25,25 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship('Post', back_populates='user')
     likes = db.relationship('Like', back_populates='user')
+    # noinspection PyPropertyAccess
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'),
+        lazy='dynamic'
+    )
+
+    def follow(self, user):
+        self.followed.append(user)
+
+    def unfollow(self, user):
+        self.followed.remove(user)
+
+    # noinspection PyPropertyAccess
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id == user.id)\
+                   .count() > 0
 
     def get_reset_token(self, expires_seconds: int = 18000) -> str:
         secret_key = current_app.config.secret_key

@@ -20,3 +20,7 @@
     {{ profile_card(user=user) }}
   </div>
 {% endblock col4 %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='js/users/follow.js') }}"></script>
+{% endblock script %}
