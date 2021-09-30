@@ -1,9 +1,11 @@
 from flask import render_template, Blueprint, request, redirect
+from sqlalchemy import func, desc
 
 from pyblog.blueprints.main.forms import SearchForm
 from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, ForgotPasswordForm
 from pyblog.extensions import auth
-from pyblog.models import Post
+from pyblog.extensions.database import get_session
+from pyblog.models import Post, Like
 
 main = Blueprint('main', __name__)
 
@@ -26,10 +28,10 @@ def index():
     else:
         posts: list[Post] = Post.query.filter_by(is_published=True).all()
 
-    recommended_posts: list[Post] = (
-        Post.query.filter_by(is_published=True)
-            .order_by(Post.id).limit(3).all()
-    )
+    session = get_session()
+    recommended_posts: list[Post] = session.query(Post) \
+        .outerjoin(Like).group_by(Post.id).order_by(desc(func.count(Like.post_id))).limit(3).all()
+    session.close()
 
     if auth.current_user.is_authenticated:
         return render_template('index.html', title='Home', posts=posts,

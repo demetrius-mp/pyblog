@@ -1,4 +1,6 @@
-{% macro sidebar() %}
+{% from 'posts/macro_post_accordion.html' import post_accordion %}
+
+{% macro sidebar(recommended_posts) %}
   <div class="card p-3">
     <label for="search" class="form-label">Search</label>
     <form class="input-group mb-3" action="" method="GET">

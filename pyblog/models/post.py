@@ -16,4 +16,4 @@ class Post(db.Model):
     posted_in = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     user = db.relationship('User', back_populates='posts', lazy='joined')
-    likes = db.relationship('Like', back_populates='post')
+    likes = db.relationship('Like', back_populates='post', lazy='joined')

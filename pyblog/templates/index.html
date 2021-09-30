@@ -1,6 +1,5 @@
 {% extends 'layouts/col8_col4.html' %}
 {% from 'posts/macro_post_card.html' import post_cards with context %}
-{% from 'posts/macro_post_accordion.html' import post_accordion with context %}
 {% from 'base/sidebar.html' import sidebar %}
 
 {% block col8 %}
@@ -12,7 +11,7 @@
 
 {% block col4 %}
   <div id="sidebar">
-    {{ sidebar() }}
+    {{ sidebar(recommended_posts=recommended_posts) }}
   </div>
   <hr class="mb-3 mb-lg-0">
 {% endblock col4 %}
