@@ -7,6 +7,7 @@ import json
 from slugify import slugify
 
 from pyblog.extensions.database import get_session
+from pyblog.extensions.auth import generate_password_hash
 from pyblog.models import User, Post
 
 
@@ -23,7 +24,7 @@ def add_dummy_data_():
         # noinspection PyArgumentList
         db_user = User(
             username=dummy_user['username'],
-            password=dummy_user['password'],
+            password=generate_password_hash(str(dummy_user['password'])),
             full_name=dummy_user['name'],
             email=dummy_user['mail'],
             looking_to=dummy_user['looking_to'],
