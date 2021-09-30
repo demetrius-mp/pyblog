@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
 from pyblog.models import Like, Post
+from pyblog.blueprints.api_decorators import login_required_api
 
 api = Blueprint('likes_api', __name__, url_prefix='/api/likes')
 
@@ -19,19 +20,6 @@ def post_must_exist(f):
                 'msg': 'Post not found.',
                 'category': 'info'
             }), 404
-        return f(*args, **kwargs)
-    return decorated_function
-
-
-def login_required_api(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        current_user = auth.current_user
-        if not current_user.is_authenticated:
-            return jsonify({
-                'msg': 'You must login to like a post.',
-                'category': 'info'
-            }), 401
         return f(*args, **kwargs)
     return decorated_function
 
