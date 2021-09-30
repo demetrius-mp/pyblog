@@ -14,7 +14,7 @@ def like_post(post_id: int):
     current_user = auth.current_user
     if not current_user.is_authenticated:
         return jsonify({
-            'msg': 'You must login to access this page.',
+            'msg': 'You must login to like a post.',
             'category': 'info'
         }), 401
 
@@ -48,7 +48,7 @@ def dislike_post(post_id: int):
     current_user = auth.current_user
     if not current_user.is_authenticated:
         return jsonify({
-            'msg': 'You must login to access this page.',
+            'msg': 'You must login to dislike a post.',
             'category': 'info'
         }), 401
 
