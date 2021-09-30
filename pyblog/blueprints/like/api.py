@@ -28,6 +28,7 @@ def like_post(post_id: int):
     like = Like(user_id=current_user.id, post_id=post.id)
     session = get_session()
     session.add(like)
+
     try:
         session.commit()
     except IntegrityError:
@@ -60,6 +61,12 @@ def dislike_post(post_id: int):
         }), 404
 
     like = Like.query.filter_by(user_id=auth.current_user.id, post_id=post.id).first()
+    if not like:
+        return jsonify({
+            'msg': 'You did not like this post.',
+            'category': 'error'
+        }), 400
+
     session = get_session()
     session.delete(like)
     session.commit()
