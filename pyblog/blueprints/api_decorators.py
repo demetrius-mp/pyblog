@@ -11,7 +11,7 @@ def login_required_api(f):
         current_user = auth.current_user
         if not current_user.is_authenticated:
             return jsonify({
-                'msg': 'You must login to follow someone.',
+                'msg': 'You must login first.',
                 'category': 'info'
             }), 401
         return f(*args, **kwargs)

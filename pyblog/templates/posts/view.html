@@ -2,8 +2,8 @@
 {% from 'users/macro_profile_card.html' import profile_card with context %}
 {% from 'posts/macro_post_card.html' import post_card with context %}
 {% from 'posts/macro_post_view.html' import post_view %}
-{{ registration_form.submit() }}
 {% block col8 %}
+  {{ post_card(post) }}
   <div id="postContent"></div>
 {% endblock col8 %}
 

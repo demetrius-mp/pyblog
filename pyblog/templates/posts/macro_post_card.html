@@ -77,6 +77,9 @@
               {% elif post and current_user.id in post.likes|map(attribute='user_id')|list %}
                 <i id="{{ post.id }}" style="cursor: pointer;" class="like bi bi-hand-thumbs-up"></i>
                 <span id="likesCount_{{ post.id }}">{{ post.likes|length }}</span>
+              {% else %}
+                <i id="{{ post.id }}" style="cursor: pointer;" class="like bi bi-hand-thumbs-up"></i>
+                <span>{{ post.likes|length }}</span>
               {% endif %}
             </div>
           </div>
