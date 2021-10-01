@@ -3,7 +3,7 @@ $('#profileCard').on('click', '.follow', (e) => {
   const was_following = e.target.classList.contains('btn-outline-danger')
   const request_method = was_following ? 'DELETE' : 'POST'
   $.ajax({
-    url: `api/follows/${username}`,
+    url: `/api/follows/${username}`,
     type: request_method,
     success: () => {
       const is_following = !was_following

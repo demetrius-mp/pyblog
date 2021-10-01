@@ -3,7 +3,7 @@ $('#posts').on('click', '.like', (e) => {
   const was_liked = e.target.classList.contains('bi-hand-thumbs-up-fill')
   const request_method = was_liked ? 'DELETE' : 'POST'
   $.ajax({
-    url: `api/likes/${postId}`,
+    url: `/api/likes/${postId}`,
     type: request_method,
     success: () => {
       const is_liked = !was_liked
