@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
 
 from pyblog.blueprints.posts.forms import CreatePostForm
+from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, ForgotPasswordForm
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
 from pyblog.models import Post
@@ -87,4 +88,10 @@ def view(username: str, post_slug: str):
         flash('Post not found.', 'error')
         return redirect(url_for('main.index'))
 
-    return render_template('posts/view.html', title='Post', post=post)
+    forgot_password_form = ForgotPasswordForm()
+    registration_form = RegistrationForm()
+    login_form = LoginForm()
+
+    return render_template('posts/view.html', title='Post', post=post,
+                           forgot_password_form=forgot_password_form,
+                           registration_form=registration_form, login_form=login_form)

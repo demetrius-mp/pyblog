@@ -2,13 +2,13 @@
 {% from 'users/macro_profile_card.html' import profile_card with context %}
 {% from 'posts/macro_post_card.html' import post_card with context %}
 {% from 'posts/macro_post_view.html' import post_view %}
-
+{{ registration_form.submit() }}
 {% block col8 %}
   <div id="postContent"></div>
 {% endblock col8 %}
 
 {% block col4 %}
-  <div id="author">
+  <div id="profileCard">
     <h1>About the author</h1>
     {{ profile_card(user=post.user) }}
   </div>
