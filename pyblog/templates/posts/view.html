@@ -3,7 +3,9 @@
 {% from 'posts/macro_post_card.html' import post_card with context %}
 {% from 'posts/macro_post_view.html' import post_view %}
 {% block col8 %}
-  {{ post_card(post) }}
+  <div id="posts">
+    {{ post_card(post) }}
+  </div>
   <div id="postContent"></div>
 {% endblock col8 %}
 
@@ -20,6 +22,7 @@
   <script src="{{ url_for('static', filename='vendor/markdown/purify.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/posts/view.js') }}"></script>
   <script src="{{ url_for('static', filename='js/users/follow.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/posts/like.js') }}"></script>
   <script>
     setPostContent({{ post.id }})
   </script>
