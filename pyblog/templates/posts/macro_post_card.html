@@ -71,12 +71,13 @@
           </small>
           <div>
             <div class="d-inline">
-              {% if current_user.id in post.likes|map(attribute='user_id')|list %}
-                <i id="{{ post.id }}" style="cursor: pointer;" class="like bi bi-hand-thumbs-up-fill"></i>
-              {% else %}
+              {% if not post %}
+                <i style="cursor: pointer;" class="like bi bi-hand-thumbs-up"></i>
+                <span>0</span>
+              {% elif post and current_user.id in post.likes|map(attribute='user_id')|list %}
                 <i id="{{ post.id }}" style="cursor: pointer;" class="like bi bi-hand-thumbs-up"></i>
+                <span id="likesCount_{{ post.id }}">{{ post.likes|length }}</span>
               {% endif %}
-              <span id="likesCount_{{ post.id }}">{{ post.likes|length }}</span>
             </div>
           </div>
         </div>
