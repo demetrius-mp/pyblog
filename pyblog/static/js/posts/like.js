@@ -9,7 +9,7 @@ $('#posts').on('click', '.like', (e) => {
       const is_liked = !was_liked
       const $likesCount = $(`#likesCount_${postId}`)
       const likesCount = parseInt($likesCount.text())
-      
+
       if (is_liked) {
         $likesCount.text(likesCount + 1)
         e.target.classList.remove('bi-hand-thumbs-up')
