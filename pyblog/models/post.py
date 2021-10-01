@@ -1,4 +1,8 @@
 from datetime import datetime
+import secrets
+
+# noinspection PyPackageRequirements
+from slugify import slugify
 
 from pyblog.extensions.database import db
 
@@ -17,3 +21,14 @@ class Post(db.Model):
 
     user = db.relationship('User', back_populates='posts', lazy='joined')
     likes = db.relationship('Like', back_populates='post', lazy='joined')
+
+    @staticmethod
+    def generate_valid_slug(title: str, unavailable_slugs: list[str]) -> str:
+        slug = slugify(title, max_length=248)
+        random_suffix = secrets.token_urlsafe(8)
+        complete_slug = slug + random_suffix
+        while complete_slug in unavailable_slugs:
+            random_suffix = secrets.token_urlsafe(8)
+            complete_slug = slug + random_suffix
+
+        return complete_slug

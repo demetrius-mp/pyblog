@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template, flash, redirect, url_for
-# noinspection PyPackageRequirements
-from slugify import slugify
 
 from pyblog.blueprints.posts.forms import CreatePostForm
 from pyblog.extensions import auth
@@ -21,7 +19,8 @@ def new():
         post.description = form.description.data
         post.content = form.content.data
         post.is_published = form.publish.data
-        post.slug = slugify(post.title, max_length=256)
+        unavailable_slugs = list(map(lambda p: p.slug, auth.current_user.posts))
+        post.slug = Post.generate_valid_slug(post.title, unavailable_slugs)
         session = get_session()
         session.add(post)
         session.commit()
@@ -42,10 +41,10 @@ def new():
     return render_template('posts/new.html', title='Create Post', form=form)
 
 
-@posts.route('/edit/<int:post_id>', methods=['GET', 'POST'])
+@posts.route('/edit/<string:post_slug>', methods=['GET', 'POST'])
 @auth.login_required
-def edit(post_id: int):
-    post: Post = Post.query.get(post_id)
+def edit(post_slug: str):
+    post: Post = Post.query.filter_by(slug=post_slug).first()
     if not post or post.user_id != auth.current_user.id:
         flash('Post not found', 'error')
         return redirect(url_for('main.index'))
@@ -81,9 +80,9 @@ def edit(post_id: int):
                            post=post)
 
 
-@posts.route('/<string:username>/<int:post_id>')
-def view(username: str, post_id: int):
-    post: Post = Post.query.get(post_id)
+@posts.route('/<string:username>/<string:post_slug>')
+def view(username: str, post_slug: str):
+    post: Post = Post.query.filter_by(slug=post_slug).first()
     if not post or post.user.username != username:
         flash('Post not found.', 'error')
         return redirect(url_for('main.index'))

@@ -8,7 +8,7 @@
               <h5 class="mb-0">
                 {% if post %}
                   <a class="text-decoration-none" id="titleCard"
-                     href="{{ url_for('posts.view', username=post.user.username, post_id=post.id) }}">
+                     href="{{ url_for('posts.view', username=post.user.username, post_slug=post.slug) }}">
                     {{ post.title }}
                   </a>
                   {% if current_user.id == post.user.id %}
