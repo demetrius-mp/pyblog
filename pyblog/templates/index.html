@@ -5,7 +5,12 @@
 
 {% block col8 %}
   <div id="posts">
-    <h1 class="mb-3">Posts from your community</h1>
+    <div class="d-flex justify-content-between mb-2">
+      <h1>Posts from your community</h1>
+      <div class="mt-1">
+        {{ pagination_posts(posts=posts) }}
+      </div>
+    </div>
     {{ post_cards(posts=posts) }}
   </div>
 {% endblock col8 %}
@@ -15,9 +20,9 @@
     {{ sidebar(recommended_posts=recommended_posts) }}
   </div>
   <hr class="mb-3 mb-lg-0">
-  <div class="d-flex justify-content-center mt-3">
-    {{ pagination_posts(posts=posts) }}
-  </div>
+{#  <div class="d-flex justify-content-center mt-3">#}
+{#    {{ pagination_posts(posts=posts) }}#}
+{#  </div>#}
 {% endblock col4 %}
 
 {% block script %}
