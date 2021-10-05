@@ -1,6 +1,6 @@
-function setPostContent(postId) {
+function setPostContent(postSlug) {
   $.ajax({
-    url: `/api/posts/${postId}`,
+    url: `/api/posts/${postSlug}`,
     type: 'GET',
     success: (data) => setText(data)
   })
