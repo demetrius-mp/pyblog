@@ -1,4 +1,5 @@
 import datetime
+import random
 from pathlib import Path
 
 from flask import Flask
@@ -50,11 +51,11 @@ def add_dummy_data_():
     for dummy_post in dummy_posts:
         # noinspection PyArgumentList
         db_post = Post(
-            user_id=dummy_post['user_id'],
+            user_id=random.randint(1, len(db_users)),
             title=dummy_post['title'],
             slug=slugify(dummy_post['title']),
             is_published=True,
-            description=dummy_post['description'],
+            description=dummy_post['description'][:299],
             content=dummy_post['content'],
             posted_in=datetime.datetime.utcnow()
         )
