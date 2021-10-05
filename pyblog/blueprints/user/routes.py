@@ -14,6 +14,7 @@ users = Blueprint('users', __name__)
 
 @users.route("/register", methods=['POST'])
 def register():
+    """Route to register a user."""
     if auth.current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -21,7 +22,8 @@ def register():
     if form.validate_on_submit():
         hashed_password = auth.generate_password_hash(form.password.data)
         # noinspection PyArgumentList
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data, email=form.email.data,
+                    password=hashed_password)
         session = get_session()
         session.add(user)
         session.commit()
@@ -43,6 +45,7 @@ def register():
 
 @users.route("/login", methods=['POST'])
 def login():
+    """Route to login a user."""
     if auth.current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -75,6 +78,7 @@ def login():
 
 @users.route('/activate-account/<string:token>', methods=['GET', 'POST'])
 def activate_account(token: str):
+    """Route to activate a user's account."""
     if auth.current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -96,6 +100,7 @@ def activate_account(token: str):
 
 @users.route('/forgot-password', methods=['POST'])
 def forgot_password():
+    """Route to send the forgot password email."""
     if auth.current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -119,6 +124,7 @@ def forgot_password():
 
 @users.route('/reset-password/<string:token>', methods=['GET', 'POST'])
 def reset_password(token: str):
+    """Route to reset a password."""
     if auth.current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -145,6 +151,7 @@ def reset_password(token: str):
 @users.route('/logout')
 @auth.login_required
 def logout():
+    """Route to logout a user."""
     auth.logout_user()
     flash('Logout succesful', 'success')
 
@@ -154,6 +161,7 @@ def logout():
 @users.route('/me', methods=['GET', 'POST'])
 @auth.login_required
 def me():
+    """Route to see or change the current user's information."""
     current_user: User = auth.current_user
     form = UpdateProfileForm()
     if form.validate_on_submit():
@@ -202,6 +210,7 @@ def me():
 
 @users.route('/<string:username>', methods=['GET', 'POST'])
 def user_page(username: str):
+    """Route to see a user's profile page."""
     user: User = User.query.filter_by(username=username).first()
     if not user:
         flash('User not found.', 'warning')
@@ -222,6 +231,7 @@ def user_page(username: str):
 @users.route('/dashboard')
 @auth.login_required
 def dashboard():
+    """Route that shows a user's dashboard."""
     posts = auth.current_user.posts
     draft_posts: Iterator[Post] = list(filter(lambda p: not p.is_published, posts))
     published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, posts))

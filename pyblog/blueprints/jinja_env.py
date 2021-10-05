@@ -4,6 +4,7 @@ from flask import Flask
 
 
 def init_app(app: Flask):
+    """Adds jinja global functions and variables."""
     def utc_now():
         return datetime.utcnow().strftime('%d/%m/%Y at %H:%M:%S')
 
