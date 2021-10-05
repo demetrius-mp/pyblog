@@ -4,7 +4,7 @@ from pyblog.models import Post
 api = Blueprint('posts_api', __name__, url_prefix='/api/posts')
 
 
-@api.get('/<int:post_id>')
-def get_one(post_id: int):
-    post: Post = Post.query.get(post_id)
+@api.get('/<string:post_slug>')
+def get_one(post_slug: str):
+    post: Post = Post.query.filter_by(slug=post_slug).first()
     return jsonify(post.content)

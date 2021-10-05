@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
 from pyblog.models import Like, Post
-from pyblog.blueprints.api_decorators import login_required_api
+from pyblog.blueprints.api.utils import login_required_api
 
 api = Blueprint('likes_api', __name__, url_prefix='/api/likes')
 

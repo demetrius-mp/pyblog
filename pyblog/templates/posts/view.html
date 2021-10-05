@@ -24,6 +24,6 @@
   <script src="{{ url_for('static', filename='js/users/follow.js') }}"></script>
   <script src="{{ url_for('static', filename='js/posts/like.js') }}"></script>
   <script>
-    setPostContent({{ post.id }})
+    setPostContent('{{ post.slug }}')
   </script>
 {% endblock script %}
