@@ -12,6 +12,7 @@ posts = Blueprint('posts', __name__)
 @posts.route('/new', methods=['GET', 'POST'])
 @auth.login_required
 def new():
+    """Route to create a new post."""
     form = CreatePostForm()
     if form.validate_on_submit():
         post = Post()
@@ -28,7 +29,8 @@ def new():
 
         if form.publish.data:
             flash('Post published succesfully!', 'success')
-            return redirect(url_for('users.user_page', username=auth.current_user.username))
+            return redirect(url_for('users.user_page',
+                                    username=auth.current_user.username))
 
         elif form.save_draft.data:
             flash('Saved post draft.', 'info')
@@ -45,6 +47,7 @@ def new():
 @posts.route('/edit/<string:post_slug>', methods=['GET', 'POST'])
 @auth.login_required
 def edit(post_slug: str):
+    """Route to edit a post."""
     post: Post = Post.query.filter_by(slug=post_slug).first()
     if not post or post.user_id != auth.current_user.id:
         flash('Post not found', 'error')
@@ -83,6 +86,7 @@ def edit(post_slug: str):
 
 @posts.route('/<string:username>/<string:post_slug>')
 def view(username: str, post_slug: str):
+    """Route to see a post."""
     post: Post = Post.query.filter_by(slug=post_slug).first()
     if not post or post.user.username != username:
         flash('Post not found.', 'error')

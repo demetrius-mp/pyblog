@@ -5,6 +5,7 @@ from wtforms.widgets import TextArea
 
 
 class CreatePostForm(FlaskForm):
+    """Form to create a post."""
     title = StringField('Title',
                         validators=[DataRequired(), Length(min=2, max=50)])
     description = StringField('Description', validators=[DataRequired(), Length(min=10, max=300)], widget=TextArea())
