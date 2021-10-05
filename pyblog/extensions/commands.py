@@ -6,9 +6,13 @@ import json
 # noinspection PyPackageRequirements
 from slugify import slugify
 
-from pyblog.extensions.database import get_session
+from pyblog.extensions.database import get_session, db
 from pyblog.extensions.auth import generate_password_hash
 from pyblog.models import User, Post
+
+
+def drop_db_():
+    db.drop_all()
 
 
 def add_dummy_data_():
@@ -67,3 +71,8 @@ def init_app(app: Flask):
     def add_dummy_data():
         """Adds dummy users and posts to the blog"""
         add_dummy_data_()
+
+    @app.cli.command()
+    def drop_db():
+        """Drops all the tables in the database"""
+        drop_db_()
