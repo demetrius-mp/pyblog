@@ -24,13 +24,18 @@ class RegistrationForm(FlaskForm):
     # noinspection PyMethodMayBeStatic
     def validate_username(self, username):
         """Validates that the username is not taken."""
+        not_allowed_characters = ('|',)
         user = User.query.filter_by(username=username.data).first()
         if user and user.is_active:
             raise ValidationError('That username is taken. Please choose a different one.')
 
         elif user and not user.is_active:
             raise ValidationError('An inactive account is using this username. '
-                                  'Please, wait ~10 mins. or choose a different one')
+                                  'Please, wait ~10 mins, or choose a different one')
+
+        elif any(c in username.data for c in not_allowed_characters):
+            raise ValidationError('You can\'t use any of the following characters'
+                                  'in you username: ' + str(not_allowed_characters))
 
     # noinspection PyMethodMayBeStatic
     def validate_email(self, email):
