@@ -15,22 +15,23 @@ def post_must_exist(f):
     """Requires that the post exists."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        post = Post.query.get(kwargs['post_id'])
-        if not post:
+        post = Post.query.filter_by(slug=kwargs['post_slug']).first()
+        if not post or post.user.username != kwargs['username']:
             return jsonify({
                 'msg': 'Post not found.',
                 'category': 'info'
             }), 404
-        return f(*args, **kwargs)
+        return f(*args, **kwargs, liked_post=post)
     return decorated_function
 
 
-@api.post('/<int:post_id>')
+# noinspection PyUnusedLocal
+@api.post('/<string:username>/<string:post_slug>')
 @post_must_exist
 @login_required_api
-def like_post(post_id: int):
+def like_post(username: str, post_slug: str, liked_post: Post):
     """Likes the given post as the current user."""
-    like = Like(user_id=auth.current_user.id, post_id=post_id)
+    like = Like(user_id=auth.current_user.id, post_id=liked_post.id)
     session = get_session()
     session.add(like)
 
@@ -48,26 +49,14 @@ def like_post(post_id: int):
     })
 
 
-@api.delete('/<int:post_id>')
+# noinspection PyUnusedLocal
+@api.delete('/<string:username>/<string:post_slug>')
 @post_must_exist
 @login_required_api
-def dislike_post(post_id: int):
+def dislike_post(username: str, post_slug: str, liked_post: Post):
     """Dislike the given post as the current user."""
-    current_user = auth.current_user
-    if not current_user.is_authenticated:
-        return jsonify({
-            'msg': 'You must login to dislike a post.',
-            'category': 'info'
-        }), 401
-
-    post = Post.query.get(post_id)
-    if not post:
-        return jsonify({
-            'msg': 'Post not found.',
-            'category': 'info'
-        }), 404
-
-    like = Like.query.filter_by(user_id=auth.current_user.id, post_id=post.id).first()
+    like = Like.query.filter_by(user_id=auth.current_user.id, post_id=liked_post.id)\
+        .first()
     if not like:
         return jsonify({
             'msg': 'You did not like this post.',

@@ -1,13 +1,14 @@
 $('#posts').on('click', '.like', (e) => {
-  const postId = parseInt(e.target.id)
+  const postIdentifier = e.target.id
+  const [username, postSlug] = postIdentifier.split('|')
   const was_liked = e.target.classList.contains('bi-hand-thumbs-up-fill')
   const request_method = was_liked ? 'DELETE' : 'POST'
   $.ajax({
-    url: `/api/likes/${postId}`,
+    url: `/api/likes/${username}/${postSlug}`,
     type: request_method,
     success: () => {
       const is_liked = !was_liked
-      const $likesCount = $(`#likesCount_${postId}`)
+      const $likesCount = $(`#likesCount_${postIdentifier.replace(/\|/g, '\\|')}`)
       const likesCount = parseInt($likesCount.text())
 
       if (is_liked) {
