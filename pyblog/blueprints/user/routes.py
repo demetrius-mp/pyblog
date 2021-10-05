@@ -237,7 +237,7 @@ def dashboard():
     published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, posts))
     num_liked_posts = len(auth.current_user.likes)
     num_users_liked_my_posts = 0
-    for post in auth.current_user.posts:
+    for post in published_posts:
         num_users_liked_my_posts += len(post.likes)
 
     return render_template('users/dashboard.html', draft_posts=draft_posts,
