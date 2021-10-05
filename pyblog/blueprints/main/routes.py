@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request, redirect
-from sqlalchemy import func, desc
+from sqlalchemy import func, desc, and_
 
 from pyblog.blueprints.main.forms import SearchForm
 from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, ForgotPasswordForm
@@ -20,14 +20,18 @@ def index():
     search_query = request.args.get('search')
     search_form = SearchForm()
 
+    page = request.args.get('page', 1, type=int)
     if search_query:
         search_form.search.data = search_query
         search_query = f'%{search_query}%'
         # noinspection PyUnresolvedReferences
-        posts: list[Post] = Post.query.filter(Post.title.like(search_query)).all()
+        posts: list[Post] = Post.query\
+            .filter(and_(Post.title.like(search_query), Post.is_published))\
+            .paginate(page=page, per_page=5)
 
     else:
-        posts: list[Post] = Post.query.filter_by(is_published=True).all()
+        posts: list[Post] = Post.query.filter_by(is_published=True)\
+            .paginate(page=page, per_page=5)
 
     session = get_session()
     recommended_posts: list[Post] = session.query(Post) \

@@ -1,6 +1,7 @@
 {% extends 'layouts/col8_col4.html' %}
 {% from 'posts/macro_post_card.html' import post_cards with context %}
 {% from 'base/sidebar.html' import sidebar %}
+{% from 'base/macro_pagination_posts.html' import pagination_posts %}
 
 {% block col8 %}
   <div id="posts">
@@ -14,6 +15,9 @@
     {{ sidebar(recommended_posts=recommended_posts) }}
   </div>
   <hr class="mb-3 mb-lg-0">
+  <div class="d-flex justify-content-center mt-3">
+    {{ pagination_posts(posts=posts) }}
+  </div>
 {% endblock col4 %}
 
 {% block script %}

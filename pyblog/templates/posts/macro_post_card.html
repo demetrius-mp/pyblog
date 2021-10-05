@@ -106,7 +106,7 @@
 {% endmacro %}
 
 {% macro post_cards(posts, user_liked_posts_ids=user_liked_posts_ids) %}
-  {% for post in posts %}
+  {% for post in posts.items %}
     {{ post_card(post=post, user_liked_posts_ids=user_liked_posts_ids) }}
   {% endfor %}
 {% endmacro %}
