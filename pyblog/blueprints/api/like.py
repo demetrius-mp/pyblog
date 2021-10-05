@@ -12,6 +12,7 @@ api = Blueprint('likes_api', __name__, url_prefix='/api/likes')
 
 
 def post_must_exist(f):
+    """Requires that the post exists."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         post = Post.query.get(kwargs['post_id'])
@@ -28,6 +29,7 @@ def post_must_exist(f):
 @post_must_exist
 @login_required_api
 def like_post(post_id: int):
+    """Likes the given post as the current user."""
     like = Like(user_id=auth.current_user.id, post_id=post_id)
     session = get_session()
     session.add(like)
@@ -50,6 +52,7 @@ def like_post(post_id: int):
 @post_must_exist
 @login_required_api
 def dislike_post(post_id: int):
+    """Dislike the given post as the current user."""
     current_user = auth.current_user
     if not current_user.is_authenticated:
         return jsonify({

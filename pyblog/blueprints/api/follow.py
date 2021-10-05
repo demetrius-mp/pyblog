@@ -13,6 +13,7 @@ api = Blueprint('follows_api', __name__, url_prefix='/api/follows')
 
 
 def user_must_exist(f):
+    """Requires that the user exists."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         user = User.query.filter_by(username=kwargs['username']).first()
@@ -30,6 +31,7 @@ def user_must_exist(f):
 @user_must_exist
 @login_required_api
 def follow(username: str, followed_user: User):
+    """Follows the given user as the current user."""
     auth.current_user.follow(followed_user)
     session = get_session()
     session.add(auth.current_user)
@@ -53,6 +55,7 @@ def follow(username: str, followed_user: User):
 @user_must_exist
 @login_required_api
 def unfollow(username: str, followed_user: User):
+    """Unfollows the given user as the current user."""
     auth.current_user.unfollow(followed_user)
     session = get_session()
     session.add(auth.current_user)
