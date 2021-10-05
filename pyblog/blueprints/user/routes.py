@@ -8,13 +8,11 @@ from pyblog.blueprints.user.forms import RegistrationForm, LoginForm, UpdateProf
 from pyblog.extensions import auth
 from pyblog.extensions.database import get_session
 from pyblog.models import User, Post
-from pyblog.blueprints.utils import disable_route
 
 users = Blueprint('users', __name__)
 
 
 @users.route("/register", methods=['POST'])
-@disable_route
 def register():
     """Route to register a user."""
     if auth.current_user.is_authenticated:
@@ -46,7 +44,6 @@ def register():
 
 
 @users.route("/login", methods=['POST'])
-@disable_route
 def login():
     """Route to login a user."""
     if auth.current_user.is_authenticated:
