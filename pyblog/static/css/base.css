@@ -2,9 +2,9 @@ body {
   font-family: Roboto-Light, serif;
 }
 
-.text-secondary {
-  color: white!important;
-}
+/*.text-secondary {*/
+/*  color: white!important;*/
+/*}*/
 
 #toast-container > .toast {
   background-image: none !important;
