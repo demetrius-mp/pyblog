@@ -220,7 +220,9 @@ def user_page(username: str):
     registration_form = RegistrationForm()
     login_form = LoginForm()
 
-    posts: list[Post] = list(filter(lambda p: p.is_published, user.posts))
+    page = request.args.get('page', 1, type=int)
+    posts: list[Post] = Post.query.filter_by(is_published=True, user_id=user.id)\
+        .paginate(page=page, per_page=5)
 
     return render_template('users/user_page.html', user=user, posts=posts,
                            title='User', login_form=login_form,

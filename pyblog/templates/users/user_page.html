@@ -1,12 +1,18 @@
 {% extends 'layouts/col8_col4.html' %}
 {% from 'users/macro_profile_card.html' import profile_card with context %}
 {% from 'posts/macro_post_card.html' import post_cards with context %}
+{% from 'base/macro_pagination_posts.html' import pagination_posts %}
 
 {% block col8 %}
-  <h1>
-    Posts from <i>@{{ user.username }}</i>
-  </h1>
-  <hr>
+  <div class="d-flex justify-content-between">
+    <h1>
+      Posts from <i>@{{ user.username }}</i>
+    </h1>
+    <div class="mt-1">
+      {{ pagination_posts(posts=posts) }}
+    </div>
+  </div>
+  <hr class="mt-0">
   <div id="posts">
     {% if not posts %}
       <h4>Nothing here yet...</h4>
