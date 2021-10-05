@@ -31,7 +31,24 @@
 {% endblock col8 %}
 
 {% block col4 %}
-  <div id="statistics">
+  <div class="mb-3" id="statistics">
     <h3>Statistics</h3>
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div>
+            <i class="bi bi-hand-thumbs-up"></i> Liked posts
+          </div>
+          <span>{{ num_liked_posts }}</span>
+        </div>
+        <div class="d-flex justify-content-between mt-3">
+          <div>
+            <i class="bi bi-hand-thumbs-up-fill"></i> Liked your posts
+          </div>
+          <span>{{ num_users_liked_my_posts }}</span>
+        </div>
+      </div>
+    </div>
   </div>
+  <hr>
 {% endblock col4 %}

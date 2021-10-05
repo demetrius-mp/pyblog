@@ -235,6 +235,12 @@ def dashboard():
     posts = auth.current_user.posts
     draft_posts: Iterator[Post] = list(filter(lambda p: not p.is_published, posts))
     published_posts: Iterator[Post] = list(filter(lambda p: p.is_published, posts))
+    num_liked_posts = len(auth.current_user.likes)
+    num_users_liked_my_posts = 0
+    for post in auth.current_user.posts:
+        num_users_liked_my_posts += len(post.likes)
 
     return render_template('users/dashboard.html', draft_posts=draft_posts,
-                           published_posts=published_posts, title='Dashboard')
+                           published_posts=published_posts, title='Dashboard',
+                           num_liked_posts=num_liked_posts,
+                           num_users_liked_my_posts=num_users_liked_my_posts)
