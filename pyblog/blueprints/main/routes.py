@@ -12,6 +12,7 @@ main = Blueprint('main', __name__)
 
 @main.route("/", methods=['GET'])
 def index():
+    """Route to the home page."""
     next_page = request.args.get('next')
     if next_page:
         return redirect(next_page)
