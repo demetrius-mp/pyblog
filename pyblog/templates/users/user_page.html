@@ -4,11 +4,11 @@
 {% from 'base/macro_pagination_posts.html' import pagination_posts %}
 
 {% block col8 %}
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between mb-0">
     <h1>
       Posts from <i>@{{ user.username }}</i>
     </h1>
-    <div class="mt-1">
+    <div>
       {{ pagination_posts(posts=posts) }}
     </div>
   </div>
@@ -22,7 +22,7 @@
 {% endblock col8 %}
 
 {% block col4 %}
-  <div id="profileCard">
+  <div class="mb-3" id="profileCard">
     {{ profile_card(user=user) }}
   </div>
 {% endblock col4 %}
