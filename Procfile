@@ -1,1 +1,1 @@
-web: gunicorn "pyblog:app"
+web: gunicorn "pyblog.wsgi:app"
